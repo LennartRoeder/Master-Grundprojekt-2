@@ -1,4 +1,3 @@
-%\documentclass[11pt,a4paper]{report}
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -21,40 +20,53 @@
 	
 	\section{Einleitung}
 	
-	\section{Grundlagen}
-	\subsection{Architektur der Websuite}
-	\subsection{Technologiestack}
+	\section{(Grundlagen)}
 	
 	\section{Analyse}
-	\subsection{Schwachstellen der alten Architektur}
-	\subsection{Lösungsansätze}
+	\subsection{(Stakeholders)}
+	\subsection{Use-cases}
+	\subsection{Gap-Analyse}
 	
 	\section{Software Design}
-	\subsection{Auswahl von Technologien}
-	\subsubsection{Entwicklungs-Werkzeuge}
-	\subsubsection{Build-Werkzeuge}
-	\subsection{Entwicklungsablauf}
-	\subsubsection{Componentenbasierte Entwicklung}
-	\subsubsection{Docker Workflow (Development \& Production)}
+	\subsection{Anforderungen}
+	\subsubsection{Funktionale Anforderungen}
+	\subsubsection{Nicht-funktionale Anforderungen}
+	\subsection{Workflow}
+	\subsection{Schnittstellen}
 	
+
 	\section{Umsetzung}
-	\subsection{UX/UI Entwürfe}
-	\subsubsection{Seitenlayout}
-	\subsubsection{Benutzerführung / Fehlerbehandlung}
-	\subsection{Portierung alter Komponenten}
+	\subsection{Technologien}
+	\subsection{Portierung der Komponenten}
 	\subsubsection{Import}
 	\subsubsection{Data View}
 	\subsubsection{Mapping}
-	\subsection{Optimierungen}
-	\subsubsection{Longpolling bei Imports}
-	\subsubsection{persistierung von Sessiondaten}
-	\subsubsection{? HTTP 1.1 to HTTP 2 ?}
-	
+	\subsection{Fehlerbehandlung}
 	
 	\section{Schluss}
 	\subsection{Zusammenfassung}
 	\subsection{Ausblick}
 	
+	\newpage
+	\textbf{Grundlagen}\\
+	Wie besprochen werde ich diesen Teil, falls notwendig mit Inhalt füllen und anderenfalls weglassen.\\
+	
+	\textbf{Analyse}\\
+	In der Analyse möchte ich anhand der Stakeholder die Use-Cases ermitteln und diese in einer Gap-Analyse mit der alten Implementierung vergleichen.\\
+	Ich bin mir nicht sicher, ob ich die Stakeholder als separaten Bereich aufführen soll, oder ob mir dafür der Inhalt fehlt.\\
+	
+	\textbf{Software Design}\\
+	Im Design Abschnitt werde ich anhand der Analyse Anforderungen aufstellen und näher beschreiben.\\
+	Der Workflow soll den Weg des Benutzers durch das System beschreiben und auf die Abhängigkeiten der 4 Phasen eingehen. Mit dem Namen der Überschrift bin ich noch nicht sicher.\\
+	Die Schnittstellen, welche die WebUI konsumiert sollen beschrieben werden. Gerade in Bezug auf Restfullness der Endpunkte sehe ich Überschneidungen mit Mitjas Arbeit.\\
+	
+	\textbf{Umsetzung}\\
+	Dieser Abschnitt beschreibt die eingesetzten Technologien und stellt den Bezug zu MS her. Der Technologie Teil soll dies erfüllen, ggf. gestützt durch einen Grundlagen Teil.\\
+	Der 2. Teil der Umsetzung beschreibt, wie die einzelnen Komponenten portiert wurden.\\
+	Fehlerbehandlung umfasst den Umgang mit Fehlern bei API Aufrufen und nicht vorhandener Backend Services.\\
+
+	\textbf{Schluss}\\
+	Im Ausblick werde ich auf das fehlende Gruppen und Sicherheitskonzept eingehen und somit mein Hauptprojekt einleiten.
 	
 	
 \end{document}
