@@ -10,7 +10,7 @@ Stakeholders are groups of people that have an interest in the system. This can 
 \subsection{Model Developer}
 The Model Developer is a technical user that creates a MARS model in cooperation with a domain expert.
 
-\subsection{Simulation Developer}
+\subsection{Simulation Creator}
 The Model Developer is an domain export. He Uses the Model, created by the Model Developer to answer a research question.
 
 \subsection{Group Admin}
@@ -30,13 +30,103 @@ This piece of work focuses on the highlighted area of the use-cases, which are d
 \end{figure}
 
 \subsection{Import Data}
+\begin{usecase}
+	\addtitle{Name}{I: Import data}
+	\addfield{Summary}{Upload local files to the Websuite, to use them for a simulation.}
+	\additemizedfield{Actors}{
+		\item Model Developer
+		\item Simulation Creator
+	}
+	\additemizedfield{Preconditions}{
+		\item Import data page is open.
+	}
+	\additemizedfield{Primary Scenario: }{
+		\item The user drags one or multiple files onto the upload window, fills the form for every file and starts the import.
+	}
+	\additemizedfield{Alternative Scenario: }{
+		\item The user clicks the upload Window, fills the form for every file and starts the import.
+	}
+\end{usecase}
 
 \subsection{Import Model}
+\begin{usecase}
+	\addtitle{Name}{II: Import model}
+	\addfield{Summary}{Upload local model files to the Websuite, to use them for a mapping.}
+	\additemizedfield{Actors}{
+		\item Model Developer
+		\item Simulation Creator
+	}
+	\additemizedfield{Preconditions}{
+		\item Import Model page is open.
+	}
+	\additemizedfield{Primary Scenario: }{
+	\item The user drags one or multiple files onto the upload window, fills the form for every file and starts the import.
+	}
+	\additemizedfield{Alternative Scenario: }{
+		\item The user clicks the upload Window, fills the form for every file and starts the import.
+	}
+\end{usecase}
 
 \subsection{Check imported Data}
+\begin{usecase}
+	\addtitle{Name}{III: Check imported data}
+	\addfield{Summary}{Make sure all the imported files from data- and model-import were processed correctly}
+	\additemizedfield{Actors}{
+		\item Model Developer
+		\item Simulation Creator
+	}
+	\additemizedfield{Preconditions}{
+		\item Data View page is open
+		\item Files have been imported
+	}
+	\additemizedfield{Primary Scenario: }{
+		\item The User views imported files, filters them by category or text input, sorts them by certain fields and displays the detailed metadata for one entry, by clicking on it.
+	}
+	\additemizedfield{Alternative Scenario: }{
+		\item none
+	}
+\end{usecase}
+
+\subsection{Create Scenario}
+\begin{usecase}
+	\addtitle{Name}{IV: Create scenario}
+	\addfield{Summary}{Create a scenario based on a model and map the necessary fields.}
+	\additemizedfield{Actors}{
+		\item Model Developer
+		\item Simulation Creator
+	}
+	\additemizedfield{Preconditions}{
+		\item Create Scenario page is open
+		\item A model has been uploaded.
+	}
+	\additemizedfield{Primary Scenario: }{
+		\item The user clicks the "add Scenario" button. Inside the new modal, he fills the form, selects a model and saves the new scenario.
+	}
+	\additemizedfield{Alternative Scenario: }{
+		\item none
+	}
+\end{usecase}
 
 \subsection{Create Mapping}
-
+\begin{usecase}
+	\addtitle{Name}{Create Mapping}
+	\addfield{Summary}{Combine the fields from the uploaded model with uploaded data.}
+	\additemizedfield{Actors}{
+		\item Model Developer
+		\item Simulation Creator
+	}
+	\additemizedfield{Preconditions}{
+		\item Create Mapping page is open
+		\item Data has been imported
+		\item Model has been imported
+	}
+	\additemizedfield{Primary Scenario: }{
+		\item The user selects a scenario and starts mapping the required fields to a dataset. He than sets the parameters for the simulation.
+	}
+	\additemizedfield{Alternative Scenario: }{
+		\item none
+	}
+\end{usecase}
 
 
 \section{Gap-Analysis}
