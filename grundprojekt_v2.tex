@@ -54,6 +54,54 @@
 	morestring=[b]"
 }
 
+% Initializing the functional requirements
+\newcommand{\reqinitF}{
+	% Create a new counter for keeping track of the last number
+	\newcounter{reqcountbackupF}
+	% Create a new counter for the custom label
+	\newcounter{reqcountF}
+	% Redefine the command for the last counter so when it is called
+	% it prints the number like this in a bold font: R<number>
+	\renewcommand{\thereqcountF}{\textbf{F\arabic{reqcountF}}}
+}
+
+% Used to define the start of the requirements
+\newcommand{\reqstartF}{
+	% Indicate the start of a new list and tell it to use the redefined
+	% command and corresponding counter for every item
+	\begin{list}{\thereqcountF}{\usecounter{reqcountF}}
+		% Important part: set the value of the used counter to the
+		% same value of the backup counter.
+		\setcounter{reqcountF}{\value{reqcountbackupF}}
+	}
+	
+	% Used to define the end of the requirements
+	\newcommand{\reqendF}{
+		% Important part: take the value of the used counter (after
+		% being incremented by the requirement items) and store it
+		% in the backup counter.
+		\setcounter{reqcountbackupF}{\value{reqcountF}}
+		% Mark the end of the list environment
+	\end{list}
+}
+
+% Initializing the non-functional requirements
+\newcommand{\reqinitNF}{
+	\newcounter{reqcountbackupNF}
+	\newcounter{reqcountNF}
+	\renewcommand{\thereqcountNF}{\textbf{NF\arabic{reqcountNF}}}
+}
+
+\newcommand{\reqstartNF}{
+	\begin{list}{\thereqcountNF}{\usecounter{reqcountNF}}
+		\setcounter{reqcountNF}{\value{reqcountbackupNF}}
+	}
+	
+	\newcommand{\reqendNF}{
+		\setcounter{reqcountbackupNF}{\value{reqcountNF}}
+	\end{list}
+}
+
 %% define some colors
 \colorlet{BackgroundColor}{gray!20}
 \colorlet{KeywordColor}{blue}
@@ -156,6 +204,10 @@
 	\onehalfspacing
 	%% write to the log/stdout
 	\typeout{===== File: chapter 1}
+	
+	% init requirements	
+	\reqinitF
+	\reqinitNF
 
 
 	\input{chapters/chapter1} % Introduction
