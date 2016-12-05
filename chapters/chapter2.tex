@@ -1,3 +1,102 @@
 % !TeX spellcheck = en_US
 
 \chapter{Groundwork}
+This chapter covers the basic technologies and term used throughout the following chapters.
+
+
+\section{MARS Websuite}
+
+
+
+\section{AngularJS}
+\label{sec:angularjs}
+The frontend is written with the JavaScript framework AngularJS v1.5. Angular was created by Miško Hevery at Brat Tech LLC in 2010 and is under active development by Google Inc. \\
+The framework extends HTML5 and JavaScript by various paradigms and patterns. This makes the development of single-page web applications more appealing. The most relevant features are described in the following paragraphs.
+
+
+\subsection{Template Engine}
+The Angular template is responsible for rendering the logic from the controller into the HTML. This is either done by the curly braces syntax which wraps the expression into double curly braces or by custom HTML tags, called directives.\vspace{1ex}
+
+\noindent\textbf{Directives} -- Are Angular's method of extending HTML by new elements with JavaScript logic attached. This can be used to create reusable, parameterized components.
+
+\noindent\textbf{Markup} -- Variables from the controller can be referenced by the double curly brackets notation.
+
+\noindent\textbf{Filter} -- Angular has buildin filters to reduce or format a given expression. This can be used to format numbers as currency or make a JSON output more readable.
+
+\noindent\textbf{Form controls} --Allows validation of formdata. A field marked as required hat an error css class attached, aswell as a JavaScript class that allows to easily validate user input.\vspace{1ex}
+
+The following example shows a simple Angular application, that uses the ng-repeat directive to iterate over fruits. Inside the loop the current fruit is rendered.
+
+\begin{lstlisting}[language=html, caption=ng-repeat Angular fruit example, label=lst:angular]
+<body ng-app="myApp" ng-controller="myCtrl as fruitCtrl">
+<ul>
+  <li ng-repeat="fruit in fruitCtrl.fruits">
+    {{fruit}}
+  </li>
+</ul>
+
+<script>
+  var app = angular.module("myApp", []);
+  app.controller("myCtrl", function() {
+    var vm = this; // ViewModel
+    vm.fruits = ["apple", "raspberry", "orange"];
+  });
+</script>
+</body>
+\end{lstlisting}
+
+\begin{lstlisting}[language=html, caption=ng-repeat Fruit result]
+<body>
+<ul>
+  <li>apple</li>
+  <li>raspberry</li>
+  <li>orange</li>
+</ul>
+</body>
+\end{lstlisting}
+
+
+\subsection{Two Way Data-Binding:}
+\label{sec:tw-binding}
+Data in Angular is bound to a Model. It always holds the most recent state of the variable. Changes to the data are always done through the model, which means that the controller and the view always have the same state of the data. This removes the need to write boilerplate code to transfer states between the HTML view and the JavaSript controller. Figure \ref{fig:tw-databinding} emphasizes this.
+
+\begin{figure}[H]
+	\centering\includegraphics[width=0.5\textwidth]{res/Two_Way_Data_Binding}
+	\caption{AngularJS two-way data binding \url{https://docs.angularjs.org/guide/databinding}}
+	\label{fig:tw-databinding}
+\end{figure}
+
+
+\subsection{Model–view–viewmodel (MVVM)}
+Angular takes advantage of the Model View Controller (MVC) pattern. The implementation however, is closer to an MVVM approach. 
+
+\subsubsection{Model}
+The Model in Angular is responsible for storing the current state of the application. Since the model is a simple JavaScript object, no boilerplate for getting and setting data is necessary.
+
+\subsubsection{ViewModel}
+The ViewModel is an object that manages specific views and stores the data that is passed between the Controller and the View. In the past, this was done, by injecting \$scope into the controller. Since Angular 1.5 the recommended way is, to create a ViewModel variable like shown in listing \ref{lst:angular}.
+
+\subsubsection{Controller}
+The Controller sets the initial state of the ViewModel and adds values and functions to it. This added functionality defines the behavior of the application. It is worth noting that the Controller does not store any state and that it is not responsible for the communication between services.
+
+\subsubsection{View}
+The View is the HTML, that exists, once Angular has interpreted the template and the appertaining data.
+
+\subsection{Dependency Injection (DI)}
+Dependency Injection allows the integration of global available dependencies into a specific controller. This ensures the availability of a component to specific controllers only. The following example defines a simple Factory that is injected into the controller.\\
+
+\begin{lstlisting}[language=JavaScript, caption=Dependency Injection Beispiel]
+angular.module('myApp', [])
+.factory('myTest', function () {
+  return {
+    number: function() {
+	  return 42;
+    }
+  };
+}
+.controller('MyController', function ($log, myTest) {
+  $log.info(myTest.number()); // prints: 42
+});
+\end{lstlisting}
+
+\section{Microservices} 
