@@ -4,7 +4,33 @@
 This chapter covers the basic technologies and term used throughout the following chapters.
 
 
+
 \section{MARS Websuite}
+The MARS Websuite is the central web application of the MARS working group. It allows the user, to prepare and start simulation runs from within the web browser.\\
+The original Websuite has a monolithic structure. This means that it is a traditional, single application with many responsibilities, parts and technologies.\\
+This work focuses on extracting the frontend of the fullstack application into a single microservice. See section \ref{sec:microservices} for more information on microservices.\\
+
+
+
+\section{Microservices}
+\label{sec:microservices}
+Microservices describes a software architecture, where the components are loosely coupled and communicate over the network later. Each so called service runs in its own process and potentially on a different machine.
+
+
+\subsection{Single responsibility}
+Big, monolithic application grow in size and complexity during their existing. This resolves into higher cost for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts. The definition of \enquote{micro} varies. \cite{newman2015building} e.g. claims that microservices should follow the \enquote{Single responsibility principle} by \cite{martin2003agile}. This states that a given component should have only one reason to change.
+
+
+\subsection{Autonomy}
+Each microservice is deployed its own process. The processes communicate with each other via a RESTful API. It is therefore possible do scale up single services as needed, without having to scale the whole application.\\
+Communication between services are no local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Microservice therefor have to be build with resilience, so their capability to work does not depend on other services.
+
+
+\subsection{History}
+The concept of handling growing complexity in software is not a new one. The first known approach goes back to Conway's law \cite{conway1968committees}. Conway claims that interfaces should reflect social boundaries within an organization.\\
+A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
+The term microservices was introduced by Martin Fowler and James Lewis \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why microservices are often referred to as \enquote{SOA done right}.\\
+The rise of containerization software like docker, allows to deploy and running services without a substantial overhead. This strongly increased the popularity of microservices over the last 2 years.
 
 
 
@@ -98,5 +124,3 @@ angular.module('myApp', [])
   $log.info(myTest.number()); // prints: 42
 });
 \end{lstlisting}
-
-\section{Microservices} 
