@@ -6,15 +6,15 @@ This chapter covers the basic technologies and term used throughout the followin
 
 
 \section{MARS Websuite}
-The MARS Websuite is the central web application of the MARS working group. It allows the user, to prepare and start simulation runs from within the web browser.\\
-The original Websuite has a monolithic structure. This means that it is a traditional, single application with many responsibilities, parts and technologies.\\
-This work focuses on extracting the frontend of the fullstack application into a single microservice. See section \ref{sec:microservices} for more information on microservices.\\
+The MARS Websuite is the web application of the MARS working group. It allows the user, to prepare and start simulation runs from within the web browser.\\
+The original Websuite has a monolithic structure. This means that it is a traditional, single application with many responsibilities, parts and technologies. The new Websuite contains of over 20 independent services.\\
+This work focuses on extracting the frontend of the fullstack application into a single microservice.
 
 
 
 \section{Microservices}
 \label{sec:microservices}
-Microservices describes a software architecture, where the components are loosely coupled and communicate over the network later. Each so called service runs in its own process and potentially on a different machine.
+Microservices describes a software architecture, where the software is split up into little parts. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
 
 
 \subsection{Single responsibility}
@@ -51,7 +51,7 @@ The Angular template is responsible for rendering the logic from the controller 
 
 \noindent\textbf{Form controls} --Allows validation of formdata. A field marked as required hat an error css class attached, aswell as a JavaScript class that allows to easily validate user input.\vspace{1ex}
 
-The following example shows a simple Angular application, that uses the ng-repeat directive to iterate over fruits. Inside the loop the current fruit is rendered.
+The following example shows a simple Angular application, that uses the ng-repeat directive to iterate over fruits. Inside the loop the current fruit is rendered, using double curly brackets notation.
 
 \begin{lstlisting}[language=html, caption=ng-repeat Angular fruit example, label=lst:angular]
 <body ng-app="myApp" ng-controller="myCtrl as fruitCtrl">
