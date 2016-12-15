@@ -6,37 +6,37 @@ This chapter covers the basic technologies and term used throughout the followin
 
 
 \section{MARS Websuite}
-The MARS Websuite is the web application of the MARS working group. It allows the user, to prepare and start simulation runs from within the web browser.\\
-The original Websuite has a monolithic structure. This means that it is a traditional, single application with many responsibilities, parts and technologies. The new Websuite contains of over 20 independent services.\\
+The MARS Websuite is the web application of the MARS working group. It allows the user to prepare and start simulation runs from within the web browser.\\
+The original Websuite has a monolithic structure, meaning it is a traditional, single application with many responsibilities, parts and technologies. The new Websuite contains of over 20 independent microservices.\\
 This work focuses on extracting the frontend of the fullstack application into a single microservice.
-
+% TODO: extend
 
 
 \section{Microservices}
 \label{sec:microservices}
-Microservices describes a software architecture, where the software is split up into little parts. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
+Microservices describes a software architecture, where the software is split up into small, independent components. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
 
 
 \subsection{Single responsibility}
-Big, monolithic application grow in size and complexity during their existing. This resolves into higher cost for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts. The definition of \enquote{micro} varies. \cite{newman2015building} e.g. claims that microservices should follow the \enquote{Single responsibility principle} by \cite{martin2003agile}. This states that a given component should have only one reason to change.
+Big, monolithic application grow in size and complexity during their existing. This resolves into higher costs for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts. The definition of \enquote{micro} varies. \cite{newman2015building} e.g. claims that microservices should follow the \enquote{Single responsibility principle} by \cite{martin2003agile}. This states that a given component should have only one reason to change.
 
 
 \subsection{Autonomy}
-Each microservice is deployed its own process. The processes communicate with each other via a RESTful API. It is therefore possible do scale up single services as needed, without having to scale the whole application.\\
+Each microservice is deployed its own process. The processes communicate with each other via a RESTful API. It is therefore possible to scale up single services as needed, without having to scale the whole application.\\
 Communication between services are no local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Microservice therefor have to be build with resilience, so their capability to work does not depend on other services.
 
 
 \subsection{History}
 The concept of handling growing complexity in software is not a new one. The first known approach goes back to Conway's law \cite{conway1968committees}. Conway claims that interfaces should reflect social boundaries within an organization.\\
 A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
-The term microservices was introduced by Martin Fowler and James Lewis \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why microservices are often referred to as \enquote{SOA done right}.\\
-The rise of containerization software like docker, allows to deploy and running services without a substantial overhead. This strongly increased the popularity of microservices over the last 2 years.
+The term microservices was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why microservices are often referred to as \enquote{SOA done right}.\\
+The rise of containerization software like docker, allows to deploy and run services without a substantial overhead. This strongly increased the popularity of microservices over the last 2 years.
 
 
 
 \section{AngularJS}
 \label{sec:angularjs}
-The frontend is written with the JavaScript framework AngularJS v1.5. Angular was created by Miško Hevery at Brat Tech LLC in 2010 and is under active development by Google Inc. \\
+The frontend is written with the JavaScript framework AngularJS v1.5. AngularJS was created by Miško Hevery at Brat Tech LLC in 2010 and is under active development by Google Inc. \\
 The framework extends HTML5 and JavaScript by various paradigms and patterns. This makes the development of single-page web applications more appealing. The most relevant features are described in the following paragraphs.
 
 
@@ -47,44 +47,14 @@ The Angular template is responsible for rendering the logic from the controller 
 
 \noindent\textbf{Markup} -- Variables from the controller can be referenced by the double curly brackets notation.
 
-\noindent\textbf{Filter} -- Angular has buildin filters to reduce or format a given expression. This can be used to format numbers as currency or make a JSON output more readable.
+\noindent\textbf{Filter} -- Angular has buildin filters to reduce or format a given expression. Amongst others, this can be used to format numbers as currency or make a JSON output more readable.
 
 \noindent\textbf{Form controls} --Allows validation of formdata. A field marked as required hat an error css class attached, aswell as a JavaScript class that allows to easily validate user input.\vspace{1ex}
-
-The following example shows a simple Angular application, that uses the ng-repeat directive to iterate over fruits. Inside the loop the current fruit is rendered, using double curly brackets notation.
-
-\begin{lstlisting}[language=html, caption=ng-repeat Angular fruit example, label=lst:angular]
-<body ng-app="myApp" ng-controller="myCtrl as fruitCtrl">
-<ul>
-  <li ng-repeat="fruit in fruitCtrl.fruits">
-    {{fruit}}
-  </li>
-</ul>
-
-<script>
-  var app = angular.module("myApp", []);
-  app.controller("myCtrl", function() {
-    var vm = this; // ViewModel
-    vm.fruits = ["apple", "raspberry", "orange"];
-  });
-</script>
-</body>
-\end{lstlisting}
-
-\begin{lstlisting}[language=html, caption=ng-repeat Fruit result]
-<body>
-<ul>
-  <li>apple</li>
-  <li>raspberry</li>
-  <li>orange</li>
-</ul>
-</body>
-\end{lstlisting}
 
 
 \subsection{Two Way Data-Binding:}
 \label{sec:tw-binding}
-Data in Angular is bound to a Model. It always holds the most recent state of the variable. Changes to the data are always done through the model, which means that the controller and the view always have the same state of the data. This removes the need to write boilerplate code to transfer states between the HTML view and the JavaSript controller. Figure \ref{fig:tw-databinding} emphasizes this.
+Data in Angular is bound to a Model, which always holds the most recent state of the application. Changes to the data are always passed to the model and read from the mode. This means that the controller and the view always have the same state of the data. The need to write boilerplate code, for transferring states between the HTML view and the JavaSript controller are hereby removed. Figure \ref{fig:tw-databinding} emphasizes this.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.5\textwidth]{res/Two_Way_Data_Binding}
@@ -94,7 +64,7 @@ Data in Angular is bound to a Model. It always holds the most recent state of th
 
 
 \subsection{Model–view–viewmodel (MVVM)}
-Angular takes advantage of the Model View Controller (MVC) pattern. The implementation however, is closer to an MVVM approach. 
+Angular takes advantage of the Model View Controller (MVC) pattern. The implementation however, is closer to an Model–view–viewmodel (MVVM) approach. 
 
 \subsubsection{Model}
 The Model in Angular is responsible for storing the current state of the application. Since the model is a simple JavaScript object, no boilerplate for getting and setting data is necessary.
@@ -109,18 +79,47 @@ The Controller sets the initial state of the ViewModel and adds values and funct
 The View is the HTML, that exists, once Angular has interpreted the template and the appertaining data.
 
 \subsection{Dependency Injection (DI)}
-Dependency Injection allows the integration of global available dependencies into a specific controller. This ensures the availability of a component to specific controllers only. The following example defines a simple Factory that is injected into the controller.\\
+Dependency Injection allows the integration of global available dependencies into a specific controller. This ensures the availability of a component to specific controllers only.\\
 
-\begin{lstlisting}[language=JavaScript, caption=Dependency Injection Beispiel]
-angular.module('myApp', [])
-.factory('myTest', function () {
-  return {
-    number: function() {
-	  return 42;
-    }
-  };
-}
-.controller('MyController', function ($log, myTest) {
-  $log.info(myTest.number()); // prints: 42
-});
+
+\subsection{Example}
+The following example shows a simple Angular application that uses the ng-repeat directive to iterate over fruits. Inside the loop the current fruit is rendered, using double curly brackets notation. The controller uses DI to 
+
+\begin{lstlisting}[language=javascript, caption=AngularJS directive and controller definition, label=lst:angular]
+angular.module("myApp", [])
+  .factory('Fruits', function() {
+    return {
+      get: function() {
+        return ["apple", "orange", "raspberry"];
+      }
+    };
+  })
+  
+  .controller("FruitController", function(Fruits) { // inject Fruits
+    var vm = this; // ViewModel
+    vm.fruits = Fruits.get(); // call directive
+  });
 \end{lstlisting}
+
+\begin{lstlisting}[language=html, caption=AngularJS template]
+<div ng-app="myApp" ng-controller="FruitController as fruitCtrl">
+  <ul>
+    <li ng-repeat="fruit in fruitCtrl.fruits">
+      {{fruit}}
+    </li>
+  </ul>
+</div>
+\end{lstlisting}
+
+\begin{lstlisting}[language=html, caption=HTML result]
+<ul>
+  <li>apple</li>
+  <li>orange</li>
+  <li>raspberry</li>
+</ul>
+\end{lstlisting}
+
+
+\subsection{Angular2}
+On September 14th 2016, Angular 2 stable was first released. Version 2 is a complete rewrite of the original AngularJS implementation and therefore offers no direct update path.\\
+When the MARS Websuite was first developed, Angular 2 was not an option. Right now, there are no plans, to port the application to the new version, since the migration would involve rewriting substantial parts of the application. This is why Angular2 will not be covert in this work.

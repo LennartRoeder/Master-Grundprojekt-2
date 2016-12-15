@@ -2,7 +2,7 @@
 
 \chapter{Analysis}
 This chapter is about identifying the requirements, needed to transform the application into a microservice frontend.\\
-The Analysis first determines use-cases for the system, based on the stakeholders. A gap-analysis is then performed to compare use-cases of the new system in difference to the old implementation. The result of this process will be requirements, which are separated into functional and non-functional.
+The Analysis first determines use-cases for the system, based on the stakeholders. These use-cases will be converted into requirements, which are distinguished into functional and non-functional. A gap-analysis is finally performed, to compare requirements of the new system to the old implementation. 
 
 
 \section{Stakeholders}
@@ -12,19 +12,19 @@ Stakeholders are groups of people with an interest in the system. This interest 
 The Model Developer is a technical user that creates a MARS model in cooperation with a domain expert. His main goal is to make sure the model, he created executes correctly and without errors.
 
 \subsection{Simulation Creator}
-The Simulation Creator is a domain expert. He Uses the Model, created by the Model Developer to answer a research question. Model Developers goal is, to start various simulations with a given model to validate or invalidate theories. To do so, he mainly changes the parameters of a given scenario to find out, how different parameters effect the result.
+The Simulation Creator is a domain expert. He Uses the Model, created by the Model Developer to answer a research question. Model Developers goal is to start various simulations with a given model, to validate or invalidate theories. To do so, he mainly changes the parameters of a given scenario, to find out what their impact on the results are.
 
 \subsection{Group Administrator}
-The Group Admin is a user of the system with a leading roll in his group. He wants to manage people belonging to a particular group and handle group dependent settings. He wants to add users to his group, remove them and handle permissions for data, owned by his group.
+The Group Admin is a user of the system with a leading roll in his group. He wants to manage people belonging to a particular group and handle group dependent settings. He also wants to add users to his group, remove them and handle permissions for data, owned by his group.
 
 \subsection{Administrator}
-The Administrator is a global user with far reaching permission inside the system. An admin has to be able to alter any kind of data inside the system.
+The Administrator is a global user with far reaching permission inside the system. An admin is able to alter any kind of data inside the system.
 
 
 \section{Use-cases}
-The workflow that includes completing all the necessary steps to start a simulation, can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results}. This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
-The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administrative purposes only. They are also not part of this paper.\\
-Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, the use-Cases do not differ. This is why they are simply referred as user.
+The workflow that includes completing all the necessary steps to start a simulation can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results}. This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
+The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administrative purposes only. They are also not in the scope of this paper.\\
+Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-Cases do not differ. This is why they future sections will reference them as users.
 \begin{figure}[H]
 	\centering\includegraphics[width=1\textwidth]{res/Use-Cases_reduced}
 	\caption{Use-Cases in UML notation}
@@ -34,7 +34,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 \subsection{Import Files}
 \begin{usecase}
 	\addtitle{Import I}{Data}
-	\addfield{Summary}{Upload local data files to the Websuite, to use them for a simulation. The following data types have to be supported: 
+	\addfield{Summary:}{Upload local data files to the Websuite, to use them for a simulation. The following data types have to be supported: 
 	\begin{itemize}
 		\item Geo-potential-field data
 		\item Grid-potential-field data
@@ -44,143 +44,163 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 		\item GIS data
 	\end{itemize}
 	}
-	\additemizedfield{Actors}{
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Import Data} page is open.
 	}
-	\additemizedfield{Primary Scenario: }{
+	\additemizedfield{Primary Scenario:}{
 		\item The user drags one or multiple files onto the upload window, fills the form for every file and starts the import.
 	}
-	\additemizedfield{Alternative Scenario: }{
-		\item The user clicks the upload button, selects files, fills the form for every file and starts the import.
+	\additemizedfield{Alternative Scenario:}{
+		\item The user clicks the upload button, browses files of his local machine, fills the form for every file and starts the import.
 	}
 \end{usecase}
 
 \begin{usecase}
 	\addtitle{Import II}{Model}
-	\addfield{Summary}{Upload local model files to the Websuite, to use them for a mapping.}
-	\additemizedfield{Actors}{
+	\addfield{Summary:}{Upload local model files to the Websuite, to use them for a mapping.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Import Model} page is open.
 	}
-	\additemizedfield{Primary Scenario: }{
+	\additemizedfield{Primary Scenario:}{
 	\item The user drags one or multiple files onto the upload window, fills the form for every file and starts the import.
 	}
-	\additemizedfield{Alternative Scenario: }{
-		\item The user clicks the upload Window, selects files, fills the form for every file and starts the import.
+	\additemizedfield{Alternative Scenario:}{
+		\item The user clicks the upload button, browses files of his local machine, fills the form for every file and starts the import.
 	}
 \end{usecase}
 
 \begin{usecase}
 	\addtitle{Import III}{Bulk}
-	\addfield{Summary}{Upload multible files to the Websuite, with the same metadata, to save time for files that are handled alike.}
-	\additemizedfield{Actors}{
+	\addfield{Summary:}{Upload multible files to the Websuite, with the same metadata, to save time for files that are handled alike.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Import Data} page is open.
 	}
-	\additemizedfield{Primary Scenario: }{
-		\item The user selects bulk upload, adds the files like for \textit{Import I} and fills one form to handle all the files.
+	\additemizedfield{Primary Scenario:}{
+		\item The user drags one or multiple files onto the upload window, fills the one form and starts the import.
 	}
-	\additemizedfield{Alternative Scenario: }{
-		\item none
+	\additemizedfield{Alternative Scenario:}{
+		\item The user clicks the upload button, browses files of his local machine, fills the one form and starts the import.
 	}
 \end{usecase}
 
 \subsection{Check imported Files}
 \begin{usecase}
 	\addtitle{View I}{Search \& filter results}
-	\addfield{Summary}{Find specific input data with the help of a search and filter functionality.}
-	\additemizedfield{Actors}{
+	\addfield{Summary:}{Find specific input data with the help of a search and filter functionality.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Data View} page is open
 		\item Files have been imported
 	}
-	\additemizedfield{Primary Scenario: }{
+	\additemizedfield{Primary Scenario:}{
 		\item The user views imported files, filters them by category and sorts them by name.
 	}
-	\additemizedfield{Alternative Scenario: }{
+	\additemizedfield{Alternative Scenario:}{
 		\item The user filters by text input and sorts them by category.
 	}
 \end{usecase}
 
 \begin{usecase}
 	\addtitle{View II}{Check processing result}
-	\addfield{Summary}{Make sure all the imported files from data- and modelimport were processed correctly.}
-	\additemizedfield{Actors}{
+	\addfield{Summary:}{Make sure all the imported files from data- and modelimport were processed correctly.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Data View} page is open
 		\item Files have been imported
 	}
-	\additemizedfield{Primary Scenario: }{
+	\additemizedfield{Primary Scenario:}{
 		\item The user checks the status of multible imported files by searching for them.
 	}
-	\additemizedfield{Alternative Scenario: }{
+	\additemizedfield{Alternative Scenario:}{
 		\item none
 	}
 \end{usecase}
 
 \begin{usecase}
-	\addtitle{View III}{View metadata}
-	\addfield{Summary}{View the metadata of a specific imported file.}
-	\additemizedfield{Actors}{
+	\addtitle{View III}{View metadata:}
+	\addfield{Summary:}{View the metadata of a specific imported file.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Data View} page is open
 		\item Files have been imported
 	}
-	\additemizedfield{Primary Scenario: }{
+	\additemizedfield{Primary Scenario:}{
 		\item The user clicks on a specific import entry and views the metadata inside a modal window.
 	}
-	\additemizedfield{Alternative Scenario: }{
+	\additemizedfield{Alternative Scenario:}{
 		\item none
 	}
 \end{usecase}
 
 \subsection{Scenario}
 \begin{usecase}
-	\addtitle{Scenario I}{Create scenario}
-	\addfield{Summary}{Create a scenario based on a model.}
-	\additemizedfield{Actors}{
+	\addtitle{Scenario I}{Create new scenario}
+	\addfield{Summary:}{Create a scenario based on a model.}
+	\additemizedfield{Actors:}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Create Scenario} page is open
 		\item A model has been uploaded.
 	}
-	\additemizedfield{Primary Scenario: }{
-		\item The user clicks the "add Scenario" button. Inside the new modal, he fills the form, selects a model and saves the new scenario.
+	\additemizedfield{Primary Scenario:}{
+		\item The user clicks the "add Scenario" button. Inside the new modal, he specifies a name, selects a model and saves the new scenario.
 	}
-	\additemizedfield{Alternative Scenario: }{
+	\additemizedfield{Alternative Scenario:}{
 		\item none
 	}
 \end{usecase}
 
 \begin{usecase}
-	\addtitle{Scenario II}{Create Mapping}
-	\addfield{Summary}{Combine the fields from the uploaded model with uploaded data.}
+	\addtitle{Scenario II}{Create scenario as copy}
+	\addfield{Summary:}{Create a scenario based on an existing scenario. This clones the original scenario with all its mapping and saves it under a different name.}
+	\additemizedfield{Actors:}{
+		\item User
+	}
+	\additemizedfield{Preconditions:}{
+		\item \textit{Create Scenario} page is open
+		\item A model has been uploaded.
+		\item At least one scenario exists.
+	}
+	\additemizedfield{Primary Scenario:}{
+		\item The user clicks the "clone Scenario" button. Inside the new modal, he changes the name and description and saves the new scenario.
+	}
+	\additemizedfield{Alternative Scenario:}{
+		\item none
+	}
+\end{usecase}
+
+\begin{usecase}
+	\addtitle{Scenario III}{Create Mapping}
+	\addfield{Summary:}{Combine the fields from the uploaded model with uploaded data.}
 	\additemizedfield{Actors}{
 		\item User
 	}
-	\additemizedfield{Preconditions}{
+	\additemizedfield{Preconditions:}{
 		\item \textit{Create Mapping} page is open
-		\item Data has been imported
-		\item Model has been imported
+		\item Data has been imported.
+		\item A Model has been imported.
+		\item A scenario has been selected.
 	}
-	\additemizedfield{Primary Scenario: }{
-		\item The user selects a scenario and starts mapping the required fields to a dataset. He then sets the parameters for the simulation.
+	\additemizedfield{Primary Scenario:}{
+		\item The user connects the required fields to a dataset. He then sets the global parameters for the simulation.
 	}
-	\additemizedfield{Alternative Scenario: }{
+	\additemizedfield{Alternative Scenario:}{
 		\item none
 	}
 \end{usecase}
@@ -204,6 +224,9 @@ Derived from the use-cases, the following requirements have been created.
 \item The data import supports the \enquote{GIS} data type.
 \item The data import supports uploading multiple files with the same metadata (bulk upload).
 \item The webUI has a component that is capable of importing model files for the simulation (model import).
+\item The imports support drag and drop for file selection.
+\item The imports support browsing the local computer for file selection.
+\item Both imports show the processing of the uploaded files in a view, that is displayed independently of the import page.
 \reqendF
 
 \subsubsection{View}
@@ -241,15 +264,15 @@ Derived from the use-cases, the following requirements have been created.
 
 \subsection{Non-Functional Requirements}
 \reqstartNF
-\item Usability I: The imports support drag and drop for file selection.
-\item Usability II: The imports support browsing the local computer for file selection.
-\item Usability III: Both imports show the processing of the uploaded files in a view, that is displayed independently of the import page.
-\item Usability IV: Input fields for all components only allow the required type of input.
+\item Input fields for all components only allow the required type of input.
+\item The data import and model import share one code base (no duplicate code).
+\item Adding new supported data types can be done in one central place.
+\item The webUI does not rely on the existence of other services.
+\item Errors have to be communicated to the user.
+\item The application works in every browser that supports HTML5.
+\item No additional software installation is required on the client side.
+\item The webUI can be deployed into a Kubernetes cluster.
 
-\item Efficiency I: The data import and model import share one code base (no duplicate code).
-\item Extensibility I : Adding new data types can done in one central place.
-\item Dependability I: 
-\item Security I: 
 \reqendNF
 
 
