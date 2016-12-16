@@ -216,12 +216,12 @@ Derived from the use-cases, the following requirements have been created.
 \subsubsection{Import}
 \reqstartF
 \item The webUI has a component that is capable of importing data files for the simulation (data import).
-\item The data import supports the \enquote{Geo-potential-field} data type.
-\item The data import supports the \enquote{Grid-potential-field} data type.
-\item The data import supports the \enquote{Obstacle-layer} data type.
-\item The data import supports the \enquote{Table-based} data type.
-\item The data import supports the \enquote{Time-series} data type.
-\item The data import supports the \enquote{GIS} data type.
+\item The data import supports the \textit{Geo-potential-field} data type.
+\item The data import supports the \textit{Grid-potential-field} data type.
+\item The data import supports the \textit{Obstacle-layer} data type.
+\item The data import supports the \textit{Table-based} data type.
+\item The data import supports the \textit{Time-series} data type.
+\item The data import supports the \textit{GIS} data type.
 \item The data import supports uploading multiple files with the same metadata (bulk upload).
 \item The webUI has a component that is capable of importing model files for the simulation (model import).
 \item The imports support drag and drop for file selection.
@@ -272,10 +272,38 @@ Derived from the use-cases, the following requirements have been created.
 \item The application works in every browser that supports HTML5.
 \item No additional software installation is required on the client side.
 \item The webUI can be deployed into a Kubernetes cluster.
-
 \reqendNF
 
 
 
 \section{Gap-Analysis}
-% als Tabelle
+The following table shows the difference between the old websuite, compared to the requirements from the previous chapter.
+
+\begin{table}[H]
+	\caption{Comparison of the old Websuite and the new requirements.}
+%	\label{my-label}
+	\begin{tabularx}{\textwidth}{|X|l|l|}
+	\hline
+	\textbf{Feature} & \textbf{Websuite} & \textbf{WebUI} \\ \hline
+	The data import supports the \textit{Geo-potential-field} data type. & no & yes \\ \hline
+	The data import supports the \textit{Grid-potential-field} data type. & no & yes \\ \hline
+	The data import supports the \textit{Obstacle-layer} data type. & no & yes \\ \hline
+	The data import supports uploading multiple files with the same metadata (bulk upload). & no & yes \\ \hline
+	Both imports show the processing of the uploaded files in a view, that is displayed independently of the import page. & no & yes \\ \hline
+	The mapping view filters the available data files, so only compatible files are shown. & no & yes \\ \hline
+	The scenario view supports duplicating a scenario. & no & yes \\ \hline
+	Scenarios can be selected from every page. & no & yes \\ \hline
+	The mapping view supports transferring multiple mappings of one file to another one. & no & yes \\ \hline
+	The mapping view filters the available data files, so only compatible files are shown. & no & yes \\ \hline
+	The mapping view lets the the user filter compatible mappings by name and tag. & no & yes \\ \hline
+	The mapping view renders the correct input type depending on the allowed value & does not apply & yes \\ \hline
+	The mapping view shows the validation result from the backend, once a mapping has been saved. & no & yes \\ \hline
+	?? (The mapping view supports mapping of global parameters.) & no & yes \\ \hline
+	?? (Global scenario parameters can be added and removed by the user) & no & yes \\ \hline \hline
+	Input fields for all components only allow the required type of input. & no & yes \\ \hline
+	The data import and model import share one code base (no duplicate code). & no & yes \\ \hline
+	Adding new supported data types can be done in one central place. & no & yes \\ \hline
+	The webUI does not rely on the existence of other services. & no & yes \\ \hline
+	The webUI can be deployed into a Kubernetes cluster. & no & yes \\ \hline
+	\end{tabularx}
+\end{table}
