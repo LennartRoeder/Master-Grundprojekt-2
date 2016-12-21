@@ -12,22 +12,22 @@ Stakeholders are groups of people with an interest in the system. This interest 
 The Model Developer is a technical user that creates a MARS model in cooperation with a domain expert. His main goal is to make sure the model, he created executes correctly and without errors.
 
 \subsection{Simulation Creator}
-The Simulation Creator is a domain expert. He Uses the Model, created by the Model Developer to answer a research question. Model Developers goal is to start various simulations with a given model, to validate or invalidate theories. To do so, he mainly changes the parameters of a given scenario, to find out what their impact on the results are.
+The simulation creator is a domain expert. He Uses the Model, created by the Model Developer to answer a research question. Model Developers does that by running various simulations with a given model. He adjusts the parameters of the scenario, in order to determine their impact on the result and to prove or to disprove his theories.
 
 \subsection{Group Administrator}
 The Group Admin is a user of the system with a leading roll in his group. He wants to manage people belonging to a particular group and handle group dependent settings. He also wants to add users to his group, remove them and handle permissions for data, owned by his group.
 
 \subsection{Administrator}
-The Administrator is a global user with far reaching permission inside the system. An admin is able to alter any kind of data inside the system.
+The Administrator is a global user with far reaching permission inside the system. An admin is able to alter any kind of data inside the system. He holds global responsibility and is the only one, who is capable of activating new users.
 
 
 \section{Use-cases}
 The workflow that includes completing all the necessary steps to start a simulation can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results}. This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
 The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administrative purposes only. They are also not in the scope of this paper.\\
-Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-Cases do not differ. This is why they future sections will reference them as users.
+Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-Cases do not differ. This is why future sections will reference them as users.
 \begin{figure}[H]
 	\centering\includegraphics[width=1\textwidth]{res/Use-Cases_reduced}
-	\caption{Use-Cases in UML notation}
+	\caption{Use-Cases for the Websuite}
 	\label{fig:use-cases}
 \end{figure}
 
@@ -215,7 +215,7 @@ Derived from the use-cases, the following requirements have been created.
 
 \subsubsection{Import}
 \reqstartF
-\item The webUI has a component that is capable of importing data files for the simulation (data import).
+\item The WebUI has a component that is capable of importing data files for the simulation (data import).
 \item The data import supports the \textit{Geo-potential-field} data type.
 \item The data import supports the \textit{Grid-potential-field} data type.
 \item The data import supports the \textit{Obstacle-layer} data type.
@@ -223,7 +223,7 @@ Derived from the use-cases, the following requirements have been created.
 \item The data import supports the \textit{Time-series} data type.
 \item The data import supports the \textit{GIS} data type.
 \item The data import supports uploading multiple files with the same metadata (bulk upload).
-\item The webUI has a component that is capable of importing model files for the simulation (model import).
+\item The WebUI has a component that is capable of importing model files for the simulation (model import).
 \item The imports support drag and drop for file selection.
 \item The imports support browsing the local computer for file selection.
 \item Both imports show the processing of the uploaded files in a view, that is displayed independently of the import page.
@@ -231,7 +231,7 @@ Derived from the use-cases, the following requirements have been created.
 
 \subsubsection{View}
 \reqstartF
-\item The webUI has a component which allows the user to view the metadata of uploaded files (data view).
+\item The WebUI has a component which allows the user to view the metadata of uploaded files (data view).
 \item The data view allows reordering the displayed files.
 \item The data view supports filtering the displayed files via text input.
 \item The data view supports filtering the displayed files by data type, import status and tag.
@@ -240,7 +240,7 @@ Derived from the use-cases, the following requirements have been created.
 
 \subsubsection{Scenario}
 \reqstartF
-\item The webUI has a component that allows creating scenarios based on an imported model (Scenario view).
+\item The WebUI has a component that allows creating scenarios based on an imported model (Scenario view).
 \item The scenario view allows the user to display the already created scenarios.
 \item The scenario view allows the user to change the name of a scenario.
 \item The scenario view supports duplicating a scenario.
@@ -249,7 +249,7 @@ Derived from the use-cases, the following requirements have been created.
 
 \subsubsection{Mapping}
 \reqstartF
-\item The webUI has a component which allows the user to connect uploaded data files to a scenario (mapping view).
+\item The WebUI has a component which allows the user to connect uploaded data files to a scenario (mapping view).
 \item The mapping view supports transferring multiple mappings of one file to another one.
 \item The mapping can be created manually by the user.
 \item The mapping view filters the available data files, so only compatible files are shown.
@@ -267,24 +267,24 @@ Derived from the use-cases, the following requirements have been created.
 \item Input fields for all components only allow the required type of input.
 \item The data import and model import share one code base (no duplicate code).
 \item Adding new supported data types can be done in one central place.
-\item The webUI does not rely on the existence of other services.
+\item The WebUI does not rely on the existence of other services.
 \item Errors have to be communicated to the user.
 \item The application works in every browser that supports HTML5.
 \item No additional software installation is required on the client side.
-\item The webUI can be deployed into a Kubernetes cluster.
+\item The WebUI can be deployed into a Kubernetes cluster.
 \reqendNF
 
 
 
 \section{Gap-Analysis}
-The following table shows the difference between the old websuite, compared to the requirements from the previous chapter.
+The following table shows the difference between the old Websuite, compared to the requirements from the previous chapter.
 
 \begin{table}[H]
 	\caption{Comparison of the old Websuite and the new requirements.}
 %	\label{my-label}
 	\begin{tabularx}{\textwidth}{|X|l|l|}
 	\hline
-	\textbf{Feature} & \textbf{Websuite} & \textbf{WebUI} \\ \hline
+	\textbf{Feature} & \textbf{old Websuite} & \textbf{WebUI} \\ \hline
 	The data import supports the \textit{Geo-potential-field} data type. & no & yes \\ \hline
 	The data import supports the \textit{Grid-potential-field} data type. & no & yes \\ \hline
 	The data import supports the \textit{Obstacle-layer} data type. & no & yes \\ \hline
@@ -303,7 +303,7 @@ The following table shows the difference between the old websuite, compared to t
 	Input fields for all components only allow the required type of input. & no & yes \\ \hline
 	The data import and model import share one code base (no duplicate code). & no & yes \\ \hline
 	Adding new supported data types can be done in one central place. & no & yes \\ \hline
-	The webUI does not rely on the existence of other services. & no & yes \\ \hline
-	The webUI can be deployed into a Kubernetes cluster. & no & yes \\ \hline
+	The WebUI does not rely on the existence of other services. & no & yes \\ \hline
+	The WebUI can be deployed into a Kubernetes cluster. & no & yes \\ \hline
 	\end{tabularx}
 \end{table}
