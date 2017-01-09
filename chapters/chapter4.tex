@@ -7,38 +7,38 @@ This chapter evaluates the possibility to use microservices for the WebUI compon
 
 \section{Microservices for the WebUI}
 \label{sec:MS_for_WebUI}
-The MARS Websuite has been transfered into a mircroservice architecture. Backend services communicate via REST instead of local system calls. While this works very well for the backend, frontend components behave much different.\\
-The code of a backend service is executed in an environment defined by the provider of the application, while the frontend is delivered to the user and executed by his browser.
+The MARS Websuite has been transfered into a mircroservice architecture. Backend services communicate via REST instead of local system calls. While this works well for the backend, frontend components behave much different.\\
+The code of a backend service is executed in an environment defined by the provider of the application, while the frontend is delivered to the user and executed by his browser. Some browsers don't implement certain features and the implementations might very. As a result, assumptions that made about the software environment, are much weaker. 
 
 
 \subsection{Constraints}
-The bearing mentioned above, brings certain restrictions which are for technical and security reason. The following constraints have to be considered.
+The constraints mentioned above, brings certain restrictions which are for technical and security reason. They are described in the following section.
 
-\subsubsection{Cross-origin issue}
-Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage. These kind of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
-Therefore modern browsers implement the \textit{same-origin policy} as specified in the \textit{RFC 6454 -- The Web Origin Concept} by \cite{barth2011web}, which blocks cross-origin requests.\\
-Write access to cross-origin locations and certain tags are excluded from the restrictions, among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not reccomended, it is also possible to deactivate the strict origin policy.
+\subsubsection{Cross-origin Issue}
+Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage (usually \textit{http\{s\}://localhost/}). These kind of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
+Therefore modern browsers implement the \textit{same-origin policy} as specified in the \textit{RFC 6454 -- The Web Origin Concept} by \cite{barth2011web}, which discourages or blocks cross-origin requests, depending on the browser.\\
+Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not reccomended, it is also possible to deactivate the strict origin policy.
 
 \subsubsection{Only one initial URL}
-The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint needs to deliver the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other frontend microservices in the backend, before it is delivered to the browser.
+The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other frontend microservices in the backend, before it is delivered to the users browser.
 
-\subsubsection{tightly coupled}
-As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect from different pages. That being said, it is not possible to fetch single pages from another service during runtime.
+\subsubsection{Tightly coupled}
+As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect to different pages. That being said, it is not possible to fetch single pages from another service during runtime.
 
-\subsection{possible Solutions}
-The cross-origin issue is quite common for any site that has more than one backend to communicate with. The solution is, to deliver the whole page and all the consumed REST endpoints over a reverse proxy. The Websuite does this via Zuul.\\
+\subsection{Possible Solutions}
+The cross-origin issue is quite common for any site that has more than one backend to communicate with. The solution is, to deliver the whole page and all the consumed REST endpoints over a reverse proxy.\\
 The harder part is to split up the frontend. To do this, there are a few options.
 
 \subsubsection{AJAX}
-On this approach an empty page is delivered to the user. Afterwards, the client dynamically loads the required sections of a page from different locations, using asynchronous JavaScript calls.\\
-This approach no backend configuration, since the frontend handles the composition, but will resolve in many calls to the backend, which might impact performance.
+This approach delivers an empty page to the user. Afterwards, the client dynamically loads the required sections of a page from different locations, using asynchronous JavaScript calls.\\
+This approach requires no backend configuration, since the frontend handles the composition. As a result, many calls to the backend are made, which brings a lot of overhead that impacts performance.
 
 \subsubsection{iFrames}
-This is similar to the AJAX approach, but uses iFrames to embed the fragments into the page. The content of the page can not be cached, which will increase the performance hazard.\\
-Also the content can not control the size of the frame and is not able to communicate with other frames. While workarounds exist, iFrames are a relict from the 90s with the exception of a few use-cases.
+The iFrame approach renders a frame, that embeds content from a remote location. This is similar to the AJAX approach in the way that it uses client-side composition.\\
+The content of the page can not be cached, which reduces performance. Also the content can not control the size of the frame and is not able to communicate with other frames. While workarounds exist, iFrames are a relict from the 90s and are widely unpopular today. It however is still used for a few use-cases, like video embedding from other sites.
 
 \subsubsection{Edge Side Includes}
-Edge Side Includes (ESI) is a server-side markup language. It is capable of dynamically adding fragments of a page together to one page. As this generates substantial CPU load on the server, a Cache like Varnish is used to make it usable in production. Varnish is one of the few options that supports ESI, which is why, it is why it is the most common choice for ESI.\\
+Edge Side Includes (ESI) is a server-side markup language. It is capable of dynamically adding fragments to one page. As this generates substantial CPU load on the server, a Cache like Varnish is used to make it usable in production. Varnish is one of the few options that supports ESI, which is why, it is the most common choice for ESI.\\
 This approach requires a high amount of configuration, to make the Varnish work properly. It includes setting the time-to-live (TTL) for the fragments on the page, based on the content.\\
 The way ESI includes resource files like JavaScript, HTML and CSS can not guaranty consistency between the cached versions. This mean that an update in the HTML and JS might deliver the new HTML without the JS, which leads to errors in production.
 
@@ -50,7 +50,7 @@ Unlike ESI, SSI can guarantee the consistency between cached resource files, whi
 %Compoxure is a middleware that tries to serve as an alternative to ESI and SSI with reduced setup afford. It also allows for a more fine-tuned caching of resources. 
 
 \subsubsection{Web Components}
-Web Components are a set of features that are being developed as a W3C standard for UI composition.
+Web Components are a set of features that are being developed as a W3C standard for UI compositions. They consist of the following components.
 \begin{itemize}
 	\item \textbf{Custom Elements:} Allows creation of custom HTML tags, like Angular's directives.
 	\item \textbf{Shadow DOM:} Are elements, located outside the DOM and allow encapsulation of JS or CSS.
@@ -58,31 +58,106 @@ Web Components are a set of features that are being developed as a W3C standard 
 	\item \textbf{HTML Template:} Allows to define templates, that are evaluated once they are used. Resources are fetched, once needed.
 \end{itemize}
 
-Web Components seem like a promising development towards native support for decoupled frontends. However, the components are not fully supported by the common browsers jet.
+Web Components seem like a promising development towards native support for decoupled frontends. However, the components are still in draft status and are not fully supported by the common browsers jet.
 
 
 \subsection{general considerations}
 Splitting frontends into small services seems like an interesting thought. However, each of the approaches has downsides and that does not even consider some shared issues.\\
-Modern frontends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies to prevent additional load or incompatibilities.\\
+Modern frontends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies and their version to prevent additional load or incompatibilities.\\
 For the reasons mentioned above, most cases of composed frontends take advantage of the \textit{Backend for Frontend (BFF)} pattern, which keeps dependencies and code in the frontend to a minimum and builds backends directly tailored to the frontend.\\
-The MARS Websuite is not build this way. The backend services provide data and the WebUI contains a lot of logic to prepare and convert data. The AngularJS framework and the other dependencies are not considered small either.\\
+The MARS Websuite is not build this way. The backend services provide data and the WebUI contains a lot of logic to prepare and convert data in both directions. The AngularJS framework and its dependencies are not very lightweight either.\\
 
 
 \subsection{conclusion}
 Composing a frontend into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. This being said, the effort is only worth it, for very big applications with many developers involved.\\
-Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the backend services. While the afford would be substantial, it is questionable, if the result would be an improvement. This is due to the fact that additional complexity always introduces potential failures.
+Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the backend services. The afford would be substantial and it is questionable, if the result would be an improvement. The additional complexity introduces potential failures and reduces developers productivity.
 
 
-\section{Work-flow}
-% Way of the user through the system
+
+\section{Workflow}
+To create a successful simulation-run in MARS, certain steps have to be taken. The WebUI implements this workflow from the data import to the execution. Figure \ref{fig:dependency-workflow} shows the single components and the order, they have to executed in.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=.7\textwidth]{res/Dependency-workflow}
-	\caption{Dependency work-flow}
+	\caption{Dependency workflow}
 	\label{fig:dependency-workflow}
 \end{figure}
 
 
+\subsection{Data Import}
+The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time.\\
+The Websuite currently supports the following data types to be added:
+
+\subsubsection{Table-based}
+This import type supports CSV-files with table data that refers to a specific GPS location. This could be starting positions of elephants or the position of tree agents in a model.
+
+\subsubsection{Time-series}
+The time-series import supports CSV-files with data that changes over time. An example would be a layer containing average temperatures per day.
+
+\subsubsection{Geographic-Information-System (GIS)}
+Data with a geographical representation. This can be maps or any of the following data Types:
+\begin{itemize}
+	\item AciiGrid (*.asc)
+	\item GeoTIFF (*.tif)
+	\item GeoJSON (*.json)
+	\item Shapefile (*.shp and others compressed to a zip-file)
+\end{itemize}
+
+\subsubsection{Grid-potential-field}
+This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
+
+\subsubsection{Geo-potential-field}
+The Geo-potential-field layer is a specialized grid-potential-field layer that allows the user of GPS coordinates. The file-ending is \textit{.csv}
+
+\subsubsection{Obstacle-layer}
+Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
+
+
+\subsection{Model Import}
+The Model Import allows the upload of a zip-file, containing the dlls of the model code. This is used in the scenario creation.
+
+
+\subsection{Scenario Creation}
+This step creates a scenario based on an previously uploaded model. During the creation, the fields that need to be mapped in the following step are determined.
+
+
+\subsection{Mapping Creation}
+Based on the scenario the user maps fields for agents, layers and global parameters to data imported by the data import or to manual values. This data is then validated with the backend. Once the user has mapped all required fields successfully, it is possible to start the simulation.\\
+As shown in figure \ref{fig:dependency-workflow} this part will not be covered in this work.
+
+
 
 \section{Interface Description}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+\subsection{}
+
+
+
+
 % rest Aufrufe
