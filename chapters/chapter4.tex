@@ -61,14 +61,14 @@ Web Components are a set of features that are being developed as a W3C standard 
 Web Components seem like a promising development towards native support for decoupled frontends. However, the components are still in draft status and are not fully supported by the common browsers jet.
 
 
-\subsection{general considerations}
+\subsection{General considerations}
 Splitting frontends into small services seems like an interesting thought. However, each of the approaches has downsides and that does not even consider some shared issues.\\
 Modern frontends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies and their version to prevent additional load or incompatibilities.\\
 For the reasons mentioned above, most cases of composed frontends take advantage of the \textit{Backend for Frontend (BFF)} pattern, which keeps dependencies and code in the frontend to a minimum and builds backends directly tailored to the frontend.\\
 The MARS Websuite is not build this way. The backend services provide data and the WebUI contains a lot of logic to prepare and convert data in both directions. The AngularJS framework and its dependencies are not very lightweight either.\\
 
 
-\subsection{conclusion}
+\subsection{Conclusion}
 Composing a frontend into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. This being said, the effort is only worth it, for very big applications with many developers involved.\\
 Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the backend services. The afford would be substantial and it is questionable, if the result would be an improvement. The additional complexity introduces potential failures and reduces developers productivity.
 
@@ -85,14 +85,13 @@ To create a successful simulation-run in MARS, certain steps have to be taken. T
 
 
 \subsection{Data Import}
-The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time.\\
-The Websuite currently supports the following data types to be added:
+The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time. The Websuite currently supports the following data types.
 
 \subsubsection{Table-based}
-This import type supports CSV-files with table data that refers to a specific GPS location. This could be starting positions of elephants or the position of tree agents in a model.
+This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
 
 \subsubsection{Time-series}
-The time-series import supports CSV-files with data that changes over time. An example would be a layer containing average temperatures per day.
+The time-series import supports CSV-files with data that changes over time. An example would be a layer containing average temperatures per day over the duration of the desired simulation time.
 
 \subsubsection{Geographic-Information-System (GIS)}
 Data with a geographical representation. This can be maps or any of the following data Types:
@@ -107,57 +106,102 @@ Data with a geographical representation. This can be maps or any of the followin
 This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
 
 \subsubsection{Geo-potential-field}
-The Geo-potential-field layer is a specialized grid-potential-field layer that allows the user of GPS coordinates. The file-ending is \textit{.csv}
+The Geo-potential-field layer is a specialized grid-potential-field layer that allows the user of GPS coordinates. The file-ending is \textit{.csv}.
 
 \subsubsection{Obstacle-layer}
 Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
 
 
 \subsection{Model Import}
-The Model Import allows the upload of a zip-file, containing the dlls of the model code. This is used in the scenario creation.
+The Model Import allows the upload of a zip-files, containing the DLLs of the model code. This is used in the scenario creation.
 
 
 \subsection{Scenario Creation}
-This step creates a scenario based on an previously uploaded model. During the creation, the fields that need to be mapped in the following step are determined.
+This step creates a scenario based on an previously uploaded model. During the creation, fields that need to be mapped in the following step are determined.
 
 
 \subsection{Mapping Creation}
 Based on the scenario the user maps fields for agents, layers and global parameters to data imported by the data import or to manual values. This data is then validated with the backend. Once the user has mapped all required fields successfully, it is possible to start the simulation.\\
-As shown in figure \ref{fig:dependency-workflow} this part will not be covered in this work.
+As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work.
 
 
 
 \section{Interface Description}
+The following section describes the REST calls, which are made by the WebUI to the different backend services. The calls are separated by the components that call them.
 
 
-
-\subsection{}
-
-
-
-\subsection{}
-
-
-
-\subsection{}
-
-
-
-\subsection{}
+\subsection{Dashboard (Home)}
+The dashboard shows the user, what steps towards a successful simulation he has already completed.
+\begin{table}[H]
+	\caption{Endpoints used by Dashboard (Home)}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		GET /metadata/metadata & Check if data \& model have been successfully imported. \\ \hline
+		GET /scenario-management/scenarios & Check if a scenario has been created.\\ \hline
+		GET /scenario-management/scenarios/\{id\}/complete & Check if a valid mapping exists.\\ \hline
+	\end{tabularx}
+\end{table}
 
 
-
-\subsection{}
-
-
-
-\subsection{}
-
-
-
-\subsection{}
-
-
+\subsection{Data Import}
+\begin{table}[H]
+	\caption{Endpoints used by data import}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		POST /file/files & Initiate data import.\\ \hline
+		GET /metadata/metadata/\{dataId\}/state & Start long-polling. \\ \hline
+	\end{tabularx}
+\end{table}
 
 
-% rest Aufrufe
+\subsection{Model Import}
+\begin{table}[H]
+	\caption{Endpoints used by model import}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		POST /file/files/models & Initiate model import. \\ \hline
+		GET /metadata/metadata/\{dataId\}/state & Start long-polling. \\ \hline
+	\end{tabularx}
+\end{table}
+
+
+\subsection{Scenario Creation}
+\begin{table}[H]
+	\caption{Endpoints used by scenario creation}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		GET /scenario-management/scenarios & List all scenarios. \\ \hline
+		GET /metadata/metadata & Show uploaded models during scenario creation and display  the model name in scenario list. \\ \hline
+		POST /scenario-management/scenarios & Create a new scenario. \\ \hline
+	\end{tabularx}
+\end{table}
+
+
+\subsection{Mapping Creation}
+\begin{table}[H]
+	\caption{Endpoints used by mapping creation}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		GET /scenario-management/scenarios/\{id\} & Get the mapping structure. \\ \hline
+		GET /metadata/metadata & Get data to map against. \\ \hline
+		PUT /scenario-management/scenarios/\{id\}/mapping & Save the mapping. \\ \hline
+		PUT /scenario-management/scenarios/\{id\}/parameter & save the parameters. \\ \hline
+		GET /scenario-management/scenarios/\{id\}/complete & Check if mapping is complete and valid. \\ \hline
+	\end{tabularx}
+\end{table}
+
+
+\subsection{Global}
+\begin{table}[H]
+	\caption{Endpoints used by global}
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\textbf{Endpoint} & \textbf{Usage} \\ \hline
+		GET /metadata/metadata/\{dataId\} & Display the import processing as long-polling. \\ \hline
+	\end{tabularx}
+\end{table}
