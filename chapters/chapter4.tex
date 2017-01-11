@@ -7,8 +7,8 @@ This chapter evaluates the possibility to use microservices for the WebUI compon
 
 \section{Microservices for the WebUI}
 \label{sec:MS_for_WebUI}
-The MARS Websuite has been transfered into a mircroservice architecture. Backend services communicate via REST instead of local system calls. While this works well for the backend, frontend components behave much different.\\
-The code of a backend service is executed in an environment defined by the provider of the application, while the frontend is delivered to the user and executed by his browser. Some browsers don't implement certain features and the implementations might very. As a result, assumptions that made about the software environment, are much weaker. 
+The MARS Websuite has been transfered into a mircroservice architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
+The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the implementations might very. As a result, assumptions that made about the software environment, are much weaker. 
 
 
 \subsection{Constraints}
@@ -20,18 +20,18 @@ Therefore modern browsers implement the \textit{same-origin policy} as specified
 Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not reccomended, it is also possible to deactivate the strict origin policy.
 
 \subsubsection{Only one initial URL}
-The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other frontend microservices in the backend, before it is delivered to the users browser.
+The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other front-end microservices in the back-end, before it is delivered to the users browser.
 
 \subsubsection{Tightly coupled}
 As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect to different pages. That being said, it is not possible to fetch single pages from another service during runtime.
 
 \subsection{Possible Solutions}
-The cross-origin issue is quite common for any site that has more than one backend to communicate with. The solution is, to deliver the whole page and all the consumed REST endpoints over a reverse proxy.\\
-The harder part is to split up the frontend. To do this, there are a few options.
+The cross-origin issue is quite common for any site that has more than one back-end to communicate with. The solution is, to deliver the whole page and all the consumed REST endpoints over a reverse proxy.\\
+The harder part is to split up the front-end. To do this, there are a few options.
 
 \subsubsection{AJAX}
 This approach delivers an empty page to the user. Afterwards, the client dynamically loads the required sections of a page from different locations, using asynchronous JavaScript calls.\\
-This approach requires no backend configuration, since the frontend handles the composition. As a result, many calls to the backend are made, which brings a lot of overhead that impacts performance.
+This approach requires no back-end configuration, since the front-end handles the composition. As a result, many calls to the back-end are made, which brings a lot of overhead that impacts performance.
 
 \subsubsection{iFrames}
 The iFrame approach renders a frame, that embeds content from a remote location. This is similar to the AJAX approach in the way that it uses client-side composition.\\
@@ -58,24 +58,24 @@ Web Components are a set of features that are being developed as a W3C standard 
 	\item \textbf{HTML Template:} Allows to define templates, that are evaluated once they are used. Resources are fetched, once needed.
 \end{itemize}
 
-Web Components seem like a promising development towards native support for decoupled frontends. However, the components are still in draft status and are not fully supported by the common browsers jet.
+Web Components seem like a promising development towards native support for decoupled front-ends. However, the components are still in draft status and are not fully supported by the common browsers jet.
 
 
 \subsection{General considerations}
-Splitting frontends into small services seems like an interesting thought. However, each of the approaches has downsides and that does not even consider some shared issues.\\
-Modern frontends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies and their version to prevent additional load or incompatibilities.\\
-For the reasons mentioned above, most cases of composed frontends take advantage of the \textit{Backend for Frontend (BFF)} pattern, which keeps dependencies and code in the frontend to a minimum and builds backends directly tailored to the frontend.\\
-The MARS Websuite is not build this way. The backend services provide data and the WebUI contains a lot of logic to prepare and convert data in both directions. The AngularJS framework and its dependencies are not very lightweight either.\\
+Splitting front-ends into small services seems like an interesting thought. However, each of the approaches has downsides and that does not even consider some shared issues.\\
+Modern front-ends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies and their version to prevent additional load or incompatibilities.\\
+For the reasons mentioned above, most cases of composed front-ends take advantage of the \textit{Back-end for Front-end (BFF)} pattern, which keeps dependencies and code in the front-end to a minimum and builds back-ends directly tailored to the front-end.\\
+The MARS Websuite is not build this way. The back-end services provide data and the WebUI contains a lot of logic to prepare and convert data in both directions. The AngularJS framework and its dependencies are not very lightweight either.\\
 
 
 \subsection{Conclusion}
-Composing a frontend into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. This being said, the effort is only worth it, for very big applications with many developers involved.\\
-Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the backend services. The afford would be substantial and it is questionable, if the result would be an improvement. The additional complexity introduces potential failures and reduces developers productivity.
+Composing a front-end into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. This being said, the effort is only worth it, for very big applications with many developers involved.\\
+Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the back-end services. The afford would be substantial and it is questionable, if the result would be an improvement. The additional complexity introduces potential failures and reduces developers productivity.
 
 
 
 \section{Workflow}
-To create a successful simulation-run in MARS, certain steps have to be taken. The WebUI implements this workflow from the data import to the execution. Figure \ref{fig:dependency-workflow} shows the single components and the order, they have to executed in.
+To create a successful simulation-run in MARS, certain steps have to be taken. The WebUI implements this workflow from the data import to the execution. Figure \ref{fig:dependency-workflow} shows the single components and the order, they have to be executed in.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=.7\textwidth]{res/Dependency-workflow}
@@ -85,21 +85,21 @@ To create a successful simulation-run in MARS, certain steps have to be taken. T
 
 
 \subsection{Data Import}
-The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time. The Websuite currently supports the following data types.
+The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time. The Websuite currently supports the following data types. All of the mentioned import types can be compressed inside a zip-file.
 
 \subsubsection{Table-based}
 This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
 
 \subsubsection{Time-series}
-The time-series import supports CSV-files with data that changes over time. An example would be a layer containing average temperatures per day over the duration of the desired simulation time.
+The time-series import supports CSV-files with data that changes over time. An example is a layer, containing average temperatures per day over the duration of the desired simulation time.
 
 \subsubsection{Geographic-Information-System (GIS)}
-Data with a geographical representation. This can be maps or any of the following data Types:
+Data with a geographical representation can be imported with the GIS import. It supports the most common file types for GEO-processing, which are:
 \begin{itemize}
 	\item AciiGrid (*.asc)
 	\item GeoTIFF (*.tif)
 	\item GeoJSON (*.json)
-	\item Shapefile (*.shp and others compressed to a zip-file)
+	\item Shapefile (*.shp, *.shx, *.dbf and additional optional files)
 \end{itemize}
 
 \subsubsection{Grid-potential-field}
@@ -121,13 +121,13 @@ This step creates a scenario based on an previously uploaded model. During the c
 
 
 \subsection{Mapping Creation}
-Based on the scenario the user maps fields for agents, layers and global parameters to data imported by the data import or to manual values. This data is then validated with the backend. Once the user has mapped all required fields successfully, it is possible to start the simulation.\\
+Based on the scenario, the user maps fields for agents, layers and parameters to data imported by the data import or to manual values. This data is then validated with the back-end. Once the user has mapped all required fields successfully, it is possible to start the simulation.\\
 As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work.
 
 
 
 \section{Interface Description}
-The following section describes the REST calls, which are made by the WebUI to the different backend services. The calls are separated by the components that call them.
+The following section describes the REST calls, which are made by the WebUI to the different back-end services. The calls are separated by the components that call them.
 
 
 \subsection{Dashboard (Home)}
