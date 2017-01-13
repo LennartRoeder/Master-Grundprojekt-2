@@ -55,7 +55,7 @@ In the migration process, the following components were migrated.
 \subsubsection{Import}
 As part of the the migration, the two imports \textit{data} and \textit{model} were migrated to one code-base. This was done, by creating an import directive that can be parameterized upon usage. The merge eliminated duplicate code and resolved already existing variation in the behavior of the imports.\\
 The process that is shown in figure \ref{fig:import} shows the way, the import interacts with the back-end. Once the user selects one or more files, the WebUI generates one input form for every file. An exception is the \textit{bulk upload}. If this option is enabled, one form is generated for all files. The forms are validated while the user inputs data, to prevent mistakes as early as possible.\\
-Once the user starts the upload, the files are successively send to the \textit{File Service}. During that process the upload progress is shown. When the file have been uploaded, the WebUI triggers the long-polling (see section \ref{sec:long-polling} for more detail). This is done independent of the the import page and the current state is therefore visible from any page. This also means that the user may leave the page and come back later to check, if the processing was successful.
+Once the user starts the upload, the files are successively send to the \textit{file service}. During that process the upload progress is shown. When the file have been uploaded, the WebUI triggers the long-polling (see section \ref{sec:long-polling} for more detail). This is done independent of the the import page and the current state is therefore visible from any page. This also means that the user may leave the page and come back later to check, if the processing was successful.
 \begin{figure}[H]
 	\centering\includegraphics[width=.75\textwidth]{res/Import}
 	\caption{Import}
@@ -75,8 +75,8 @@ The Scenario Creation is a new component that did not exist in this form previou
 \end{figure}
 
 \subsubsection{Mapping Creation}
-The mapping creation replaces the old, domain-specific language based mapping component. Based on the currently selected scenario, the required mapping fields and parameters are requested from the scenario-management-service.\\
-Based on this structure, the mapping page is generated. Based on the currently selected field of a layer, the mappable data is filtered, to only allow mapping of matching types.\\
+The mapping creation replaces the old, domain-specific language based mapping component. When a scenario is selected, the required mapping fields and parameters are requested from the scenario-management-service.\\
+From this structure, the mapping page is generated. Based on the currently selected field of a layer, the mappable data is filtered, to only allow mapping of matching types.\\
 When the user triggers a mapping action, the fields containing reference to the data are added to the mapping structure. This depends on the type of data, e.g. for table data, the following fields have to be added: \textit{tableName}, \textit{columnName}, \textit{columnClearName} and \textit{dataId}. Once a field is mapped, the next is automatically selected.\\
 Once a save is triggered, the data is send to the scenario-management-service and the mapping is refreshed. This refreshed mapping structure contains the validation result for the mapped fields. Additionally, the current progress of mapping is displayed. This shows the number of fields that failed the validation. A list is available that shows the reason a specific mapping failed. Figure \ref{fig:mapping} shows the calls needed for the just described process.
 \begin{figure}[H]
