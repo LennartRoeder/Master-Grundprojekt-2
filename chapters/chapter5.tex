@@ -8,7 +8,7 @@ This chapter describes the technical implementation of the transition process sh
 	\label{fig:websuite-migration}
 \end{figure}
 
-The old JavaScript stack, containing of an AngularJS front-end and an NodeJS back-end with connection to the C$\sharp$ code over EdgeJS was replaced. The NodeJS components were migrated to several micro-services and the front-end was converted to a WebUI micro-service that consists of an AngularJS front-end with a thin layer of NodeJS to host the application.\\
+The old JavaScript stack, containing of an AngularJS front-end and an NodeJS back-end with connections to the C$\sharp$ code, over EdgeJS was replaced. The NodeJS components were migrated to several micro-services and the front-end was converted to a WebUI micro-service that consists of an AngularJS front-end with a thin layer of NodeJS to host the application.\\
 The process of migrating to the new structure is complete and the old monolithic Websuite is not used anymore.
 
 
@@ -19,7 +19,7 @@ To effectively develop a front-end application, certain talks have to be done, t
 
 \subsection{Dependency management}
 Almost every application depends on third-party components. Manually managing dependencies is an error prone tasks and checking them into the version control system clutters its history.\\
-This is why the WebUI uses the \textit{Node Package Manager} (NPM) and Bower. NPM is responsible for managing NodeJS dependencies that are used for tooling and serving the Anguular app. Bower takes care of the front-end libraries. Both tools depend on a JSON file that lists the needed dependencies, as well as their required version. This guarantees that any deployment of the app uses the correct version of any used library.
+This is why the WebUI uses the \textit{Node Package Manager} (NPM) and Bower. NPM is responsible for managing NodeJS dependencies that are used for tooling and serving the Angular app. Bower takes care of the front-end libraries. Both tools depend on a JSON file that lists the needed dependencies, as well as their required version. This guarantees that any deployment of the app uses the correct version of any used library.
 
 
 \subsection{Task Runner}
@@ -41,7 +41,7 @@ Compiles the SCSS styles to CSS. For further information see section \ref{sec:st
 
 \subsection{Initial Configuration}
 \label{sec:initial_config}
-The tasks above need to be configured, to match the development work-flow and the used file structure. This initial configuration was created with a tool called \textit{generator-gulp-angular} and modified to match the actual need for the WebUI. Additionally the generator created the file structure for the new WebUI.
+The tasks above need to be configured, to match the development work-flow and the used file structure. This initial configuration was created with a tool called \textit{generator-gulp-angular} and modified to match the actual need for the WebUI. Additionally the generator created the file structure, used by the new WebUI.
 
 
 
@@ -53,12 +53,18 @@ While it was possible to simply strip out old parts and reuse the old Websuite's
 In the migration process, the following components were migrated.
 
 \subsubsection{Import}
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/import-ui}
+	\caption{Import UI}
+	\label{fig:import-ui}
+\end{figure}
 As part of the the migration, the two imports \textit{data} and \textit{model} were migrated to one code-base. This was done, by creating an import directive that can be parameterized upon usage. The merge eliminated duplicate code and resolved already existing variation in the behavior of the imports.\\
 The process that is shown in figure \ref{fig:import} shows the way, the import interacts with the back-end. Once the user selects one or more files, the WebUI generates one input form for every file. An exception is the \textit{bulk upload}. If this option is enabled, one form is generated for all files. The forms are validated while the user inputs data, to prevent mistakes as early as possible.\\
-Once the user starts the upload, the files are successively send to the \textit{file service}. During that process the upload progress is shown. When the file have been uploaded, the WebUI triggers the long-polling (see section \ref{sec:long-polling} for more detail). This is done independent of the the import page and the current state is therefore visible from any page. This also means that the user may leave the page and come back later to check, if the processing was successful.
+Once the user starts the upload, the files are successively send to the \textit{file service}. During that process the upload progress is shown. When the file have been uploaded, the WebUI triggers the long-polling (see section \ref{sec:long-polling} for more detail). This is done independent of the the import page and the current state is therefore visible from any page. This also means that the user may leave the page and come back later to check, if the processing was successful. The UI of this import is shown in \ref{fig:import-ui}.
+
 \begin{figure}[H]
 	\centering\includegraphics[width=.75\textwidth]{res/Import}
-	\caption{Import}
+	\caption{Import sequence diagram}
 	\label{fig:import}
 \end{figure}
 
@@ -69,7 +75,7 @@ The migration of the data view did not require any special changes. The REST cal
 \subsubsection{Scenario Creation}
 The Scenario Creation is a new component that did not exist in this form previously. Its only purpose is to list existing scenarios and allow the creation of new once. When creating a new scenario, a model is specified. The Scenario-management-service adds the mapping fields, based on the models reflection result. This is used in the mapping component. Once a new scenario has been created, the list of scenarios gets refreshed. The whole work-flow is shown by figure \ref{fig:scenario}.
 \begin{figure}[H]
-	\centering\includegraphics[width=.65\textwidth]{res/Scenario}
+	\centering\includegraphics[width=.60\textwidth]{res/Scenario}
 	\caption{Scenario}
 	\label{fig:scenario}
 \end{figure}
@@ -98,18 +104,9 @@ Besides executing the actual REST calls, the factories are responsible for conve
 This design ensures that API changes need to be adopted at one single place which holds the truth for all data coming in and out of the WebUI.
 
 
-\subsection{Styling}
-\label{sec:styling}
-The styling of the old application was discarded, because it contained of many lines of self-written CSS that had no unified look and was not responsive for the most part. Instead the layout is done using bootstrap with minimal adjustments at certain points.\\
-To prevent visual side effects in other components, every html template is wrapped in a div, with its components name as the id. The CSS file for every component is only applied to children of this id.\\
-To further improve the simplicity of the styling \textit{Sassy CSS} (SCSS) was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like variables, reusable components, loops and nesting.\\
-The fact that it uses CSS syntax, allows a smooth transition, because the developer can use it like normal CSS and make use of the additional features when ever he desires.
-
-
-
-\section{Error Handling}
+\subsection{Error Handling}
 The WebUI is the component that stands between the user and the back-end services. Therefore it is essential, to provide the user with proper feedback, if an error accrues.\\
-This is why, an error factory exist that gives an easy way to generate user feedback. The input is a mandatory error message and an optional error type. The type controlles the color of the feedback. Once invoked, an error message is displayed with a button to discard it. The messages are also distinct, which prevents duplicate messages. The following listing shows an example. 
+This is why, an error factory exists that gives an easy way to generate user feedback. The input is a mandatory error message and an optional error type. The type controlles the color of the feedback. Once invoked, an error message is displayed with a button to discard it. The messages are also distinct, which prevents duplicate messages. The following listing shows an example. 
 \begin{lstlisting}[language=javascript, caption=error handling]
 vm.alerts.add('it worked', 'success');
 vm.alerts.add('it worked', 'success');
@@ -118,4 +115,12 @@ vm.alerts.add('implicit default');
 vm.alerts.add('Something went wrong', 'danger');
 \end{lstlisting}
 
-% result image
+% TODO: result image
+
+
+\subsection{Styling}
+\label{sec:styling}
+The styling of the old application was discarded, because it contained many lines of self-written CSS that had no unified look and was not responsive for the most part. Instead the layout is done using bootstrap with minimal adjustments at certain points.\\
+To prevent visual side effects in other components, every html template is wrapped in a div, with its components name as the id. The CSS file for every component is only applied to children of this id.\\
+To further improve the simplicity of the styling \textit{Sassy CSS} (SCSS) was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like variables, reusable components, loops and nesting.\\
+The fact that it uses CSS syntax, allows a smooth transition, because the developer can use it like normal CSS and make use of the additional features when ever he desires.
