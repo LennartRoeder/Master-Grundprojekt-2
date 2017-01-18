@@ -81,10 +81,15 @@ The Scenario Creation is a new component that did not exist in this form previou
 \end{figure}
 
 \subsubsection{Mapping Creation}
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/mapping-screen.png}
+	\caption{Mapping page}
+	\label{fig:mapping-screen}
+\end{figure}
 The mapping creation replaces the old, domain-specific language based mapping component. When a scenario is selected, the required mapping fields and parameters are requested from the scenario-management-service.\\
 From this structure, the mapping page is generated. Based on the currently selected field of a layer, the mappable data is filtered, to only allow mapping of matching types.\\
 When the user triggers a mapping action, the fields containing reference to the data are added to the mapping structure. This depends on the type of data, e.g. for table data, the following fields have to be added: \textit{tableName}, \textit{columnName}, \textit{columnClearName} and \textit{dataId}. Once a field is mapped, the next is automatically selected.\\
-Once a save is triggered, the data is sent to the scenario-management-service and the mapping is refreshed. This refreshed mapping structure contains the validation result for the mapped fields. Additionally, the current progress of mapping is displayed. This shows the number of fields that failed the validation. A list is available that shows the reason a specific mapping failed. Figure \ref{fig:mapping} shows the calls needed for the just described process.
+Once a save is triggered, the data is sent to the scenario-management-service and the mapping is refreshed. This refreshed mapping structure contains the validation result for the mapped fields. Additionally, the current progress of mapping is displayed. This shows the number of fields that failed the validation. A list is available that shows the reason a specific mapping failed. Figure \ref{fig:mapping} shows the calls needed for the just described process and figure \ref{fig:mapping-screen} shows the UI.
 \begin{figure}[H]
 	\centering\includegraphics[width=.65\textwidth]{res/Mapping}
 	\caption{Mapping}
@@ -107,20 +112,22 @@ This design ensures that API changes need to be adopted at one single place whic
 \subsection{Error Handling}
 The WebUI is the component that stands between the user and the back-end services. Therefore it is essential, to provide the user with proper feedback, if an error accrues.\\
 This is why, an error factory exists that gives an easy way to generate user feedback. The input is a mandatory error message and an optional error type. The type controlles the color of the feedback. Once invoked, an error message is displayed with a button to discard it. The messages are also distinct, which prevents duplicate messages. The following listing shows an example. 
-\begin{lstlisting}[language=javascript, caption=error handling]
-vm.alerts.add('it worked', 'success');
-vm.alerts.add('it worked', 'success');
-vm.alerts.add('this looks weird', 'warning');
-vm.alerts.add('implicit default');
+\begin{lstlisting}[language=javascript, caption=Error handling]
+vm.alerts.add('It worked', 'success');
+vm.alerts.add('It worked', 'success');
+vm.alerts.add('A warning', 'warning');
+vm.alerts.add('Implicit default');
 vm.alerts.add('Something went wrong', 'danger');
 \end{lstlisting}
-
-% TODO: result image
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/alert_square}
+	\caption{Error handling result}
+\end{figure}
 
 
 \subsection{Styling}
 \label{sec:styling}
 The styling of the old application was discarded, because it contained many lines of self-written CSS that had no unified look and was not responsive for the most part. Instead the layout is done using bootstrap with minimal adjustments at certain points.\\
 To prevent visual side effects in other components, every html template is wrapped in a div, with its components name as the id. The CSS file for every component is only applied to children of this id.\\
-To further improve the simplicity of the styling \textit{Sassy CSS} (SCSS) was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like variables, reusable components, loops and nesting.\\
+To further improve the simplicity of the styling \textit{Sassy CSS} (SCSS) was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like \textit{variables}, \textit{reusable} \textit{components}, \textit{loops} and \textit{nesting}.\\
 The fact that it uses CSS syntax, allows a smooth transition, because the developer can use it like normal CSS and make use of the additional features when ever he desires.

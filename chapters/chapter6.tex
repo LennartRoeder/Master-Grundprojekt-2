@@ -6,8 +6,9 @@
 
 \section{Summary}
 The Monolithic Websuite was transfered into a micro-service based application. This work covered the migration of the front-end into a separate service.\\
-The use-cases defined in section \ref{sec:requirements} have been implemented, with the exception of cloning a scenario (F21), which is still work in progress. The user work-flow is working and is being used by the model developers. The Tooling of the new WebUI proved to be much more stable, than the old on. Errors during the build process are not an issue anymore. Since the migration, crashes of the application are not an issue anymore, since error prone EdgeJS calls have been replaced with REST calls, which are properly handled. The migration of the single components improved the code quality and reduced the amount of technical depth.
+The use-cases defined in section \ref{sec:requirements} have been implemented, with few exception,  which is still work in progress. The user work-flow is completely implemented and is being used by the model developers. The Tooling of the new WebUI proved to be much more stable, than the old on. Errors during the build process are not an issue anymore. Since the migration, crashes of the application are not an issue anymore, since error prone EdgeJS calls have been replaced with REST calls, which are properly handled. The migration of the single components improved the code quality and reduced the amount of technical depth.
+
 
 
 \section{Outlook}
-The WebUI still lacks a group and user management. A group concept has to be elaborated to allow users to hide their data and results from other users. This can only be guaranteed with an authentication, which uses transport layer encryption (e.g. https) and implements best practices for storing confidential user data.
+The WebUI still lacks a group and user management. A group concept has to be elaborated to allow users to hide their data and results from other users. This can only be guaranteed with an authentication, which uses transport layer encryption and implements best practices for storing confidential user data.
