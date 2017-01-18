@@ -7,17 +7,17 @@ This chapter evaluates the possibility to use microservices for the WebUI compon
 
 \section{Microservices for the WebUI}
 \label{sec:MS_for_WebUI}
-The MARS Websuite has been transfered into a mircroservice architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
-The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the implementations might very. As a result, assumptions that made about the software environment, are much weaker. 
+The MARS Websuite has been transfered into a microservice architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
+The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the behavior for implemented features might differ. As a result, assumptions that made about the software environment, are much weaker. 
 
 
 \subsection{Constraints}
-The constraints mentioned above, brings certain restrictions which are for technical and security reason. They are described in the following section.
+The constraints mentioned above, bring certain restrictions which are for technical and security reason. They are described in the following section.
 
 \subsubsection{Cross-origin Issue}
-Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage (usually \textit{http\{s\}://localhost/}). These kind of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
+Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage (usually \textit{http\{s\}://localhost/}). These kinds of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
 Therefore modern browsers implement the \textit{same-origin policy} as specified in the \textit{RFC 6454 -- The Web Origin Concept} by \cite{barth2011web}, which discourages or blocks cross-origin requests, depending on the browser.\\
-Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not reccomended, it is also possible to deactivate the strict origin policy.
+Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not recommended, it is also possible to deactivate the strict origin policy.
 
 \subsubsection{Only one initial URL}
 The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other front-end microservices in the back-end, before it is delivered to the users browser.
@@ -40,10 +40,10 @@ The content of the page can not be cached, which reduces performance. Also the c
 \subsubsection{Edge Side Includes}
 Edge Side Includes (ESI) is a server-side markup language. It is capable of dynamically adding fragments to one page. As this generates substantial CPU load on the server, a Cache like Varnish is used to make it usable in production. Varnish is one of the few options that supports ESI, which is why, it is the most common choice for ESI.\\
 This approach requires a high amount of configuration, to make the Varnish work properly. It includes setting the time-to-live (TTL) for the fragments on the page, based on the content.\\
-The way ESI includes resource files like JavaScript, HTML and CSS can not guaranty consistency between the cached versions. This mean that an update in the HTML and JS might deliver the new HTML without the JS, which leads to errors in production.
+The way ESI includes resource files like JavaScript, HTML and CSS can not guarantee consistency between the cached versions. This mean that an update in the HTML and JS might deliver the new HTML without the JS, which leads to errors in production.
 
 \subsubsection{Server Side Includes}
-Server Side Includes (SSI) is a server-side scripting language supported by the common web-servers like Apache and NGINX, which makes it more accessible than ESI. Caching is mandatory, like it is for ESI, but the lock-in to Varnish does not exist.\\
+Server Side Includes (SSI) is a server-side scripting language that is support by the common web-servers like Apache and NGINX, which makes it more accessible than ESI. Caching is mandatory, like it is for ESI, but the lock-in to Varnish does not exist.\\
 Unlike ESI, SSI can guarantee the consistency between cached resource files, which makes it a more appealing solution.
 
 \subsubsection{Web Components}
@@ -103,7 +103,7 @@ Data with a geographical representation can be imported with the GIS import. It 
 This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
 
 \subsubsection{Geo-potential-field}
-The Geo-potential-field layer is a specialized grid-potential-field layer that allows the user of GPS coordinates. The file-ending is \textit{.csv}.
+The Geo-potential-field layer is a specialized grid-potential-field layer that allows the use of GPS coordinates. The file-ending is \textit{.csv}.
 
 \subsubsection{Obstacle-layer}
 Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
@@ -114,7 +114,7 @@ The Model Import allows the upload of a zip-files, containing the DLLs of the mo
 
 
 \subsection{Scenario Creation}
-This step creates a scenario based on an previously uploaded model. During the creation, fields that need to be mapped in the following step are determined.
+This step creates a scenario based on a previously uploaded model. During the creation, fields that need to be mapped in the following step are determined.
 
 
 \subsection{Mapping Creation}

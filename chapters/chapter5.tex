@@ -14,7 +14,7 @@ The process of migrating to the new structure is complete and the old monolithic
 
 
 \section{Tooling}
-To effectively develop a front-end application, certain talks have to be done, to make the process convenient in development and usable in production. The following topics have to be considered.
+To effectively develop a front-end application, certain tasks have to be done, to make the process convenient in development and usable in production. The following topics have to be considered.
 
 
 \subsection{Dependency management}
@@ -46,7 +46,7 @@ The tasks above need to be configured, to match the development work-flow and th
 
 
 \section{Migrating the application}
-While it was possible to simply strip out old parts and reuse the old Websuite's code-base, this was not done. Instead, a completely new structure with tested tooling was created, using the previously mentioned generator-gulp-angular (see section \ref{sec:initial_config}). This guaranteed that no old code was left inside the application, which could cause problems in the future.\\
+While it was possible to strip out old parts and reuse the old Websuite's code-base, this was not done. Instead, a completely new structure with tested tooling was created, using the previously mentioned generator-gulp-angular (see section \ref{sec:initial_config}). This guaranteed that no old code was left inside the application, which could cause problems in the future.\\
 
 
 \subsection{Components}
@@ -84,7 +84,7 @@ The Scenario Creation is a new component that did not exist in this form previou
 The mapping creation replaces the old, domain-specific language based mapping component. When a scenario is selected, the required mapping fields and parameters are requested from the scenario-management-service.\\
 From this structure, the mapping page is generated. Based on the currently selected field of a layer, the mappable data is filtered, to only allow mapping of matching types.\\
 When the user triggers a mapping action, the fields containing reference to the data are added to the mapping structure. This depends on the type of data, e.g. for table data, the following fields have to be added: \textit{tableName}, \textit{columnName}, \textit{columnClearName} and \textit{dataId}. Once a field is mapped, the next is automatically selected.\\
-Once a save is triggered, the data is send to the scenario-management-service and the mapping is refreshed. This refreshed mapping structure contains the validation result for the mapped fields. Additionally, the current progress of mapping is displayed. This shows the number of fields that failed the validation. A list is available that shows the reason a specific mapping failed. Figure \ref{fig:mapping} shows the calls needed for the just described process.
+Once a save is triggered, the data is sent to the scenario-management-service and the mapping is refreshed. This refreshed mapping structure contains the validation result for the mapped fields. Additionally, the current progress of mapping is displayed. This shows the number of fields that failed the validation. A list is available that shows the reason a specific mapping failed. Figure \ref{fig:mapping} shows the calls needed for the just described process.
 \begin{figure}[H]
 	\centering\includegraphics[width=.65\textwidth]{res/Mapping}
 	\caption{Mapping}

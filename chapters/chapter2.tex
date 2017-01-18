@@ -23,7 +23,7 @@ Big, monolithic application grow in size and complexity during their existing. T
 
 \subsection{Autonomy}
 Each microservice is deployed its own process. The processes communicate with each other via a RESTful API. It is therefore possible to scale up single services as needed, without having to scale the whole application.\\
-Communication between services are no local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Microservice therefor have to be build with resilience, so their capability to work does not depend on other services.
+Communication between services are no local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Microservice therefore have to be built with resilience, so their capability to work does not depend on other services.
 
 
 \subsection{History}
@@ -47,14 +47,14 @@ The Angular template is responsible for rendering the logic from the JavaScript 
 
 \noindent\textbf{Markup} -- Variables from the controller can be referenced by the double curly brackets notation.\vspace{1ex}
 
-\noindent\textbf{Filter} -- Angular has buildin filters to reduce or format a given expression. Amongst others, this can be used to format numbers as currency or make a JSON output more readable.\vspace{1ex}
+\noindent\textbf{Filter} -- Angular has build-in filters to reduce or format a given expression. Amongst others, this can be used to format numbers as currency or make a JSON output more readable.\vspace{1ex}
 
 \noindent\textbf{Form controls} --Allows validation of formdata. A field marked as required hat an error CSS class attached, as well as a JavaScript class that allows to easily validate user input.
 
 
 \subsection{Two Way Data-Binding}
 \label{sec:tw-binding}
-Data in Angular is bound to a Model, which always holds the most recent state of the application. Changes to the data are always passed to the model and read from it. This means that the controller and the view always have the same state of the data. The need to write boilerplate code, for transferring states between the HTML view and the JavaSript controller are hereby removed. Figure \ref{fig:tw-databinding} emphasizes this.
+Data in Angular is bound to a Model, which always holds the most recent state of the application. Changes to the data are always passed to the model and read from it. This means that the controller and the view always have the same state of the data. The need to write boilerplate code, for transferring states between the HTML view and the JavaSript controller is hereby removed. Figure \ref{fig:tw-databinding} emphasizes this.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.5\textwidth]{res/Two_Way_Data_Binding}
@@ -70,7 +70,7 @@ Angular takes advantage of the Model View Controller (MVC) pattern. The implemen
 The Model in Angular is responsible for storing the current state of the application. Since the model is a simple JavaScript object, no boilerplate for getting and setting data is necessary.
 
 \subsubsection{ViewModel}
-The ViewModel is an object that manages specific views and stores the data that is passed between the Controller and the View. In the past, this was done, by injecting \$scope into the controller. Since Angular 1.5 the recommended way is, to create a ViewModel variable like shown in listing \ref{lst:angular}.
+The ViewModel is an object that manages specific views and stores the data that is passed between the Controller and the View. In the past, this was done, by injecting \$scope into the controller. Since Angular 1.5 the recommended way is to create a ViewModel variable like shown in listing \ref{lst:angular}.
 
 \subsubsection{Controller}
 The Controller sets the initial state of the ViewModel and adds values and functions to it. This added functionality defines the behavior of the application. It is worth noting that the Controller does not store any state and that it is not responsible for the communication between services.
@@ -122,4 +122,4 @@ angular.module("myApp", [])
 
 \subsection{Angular2}
 On September 14th 2016, Angular 2 stable was first released. Version 2 is a complete rewrite of the original AngularJS implementation and therefore offers no direct update path.\\
-When the MARS Websuite was first developed, Angular 2 was not an option. Right now, there are no plans, to port the application to the new version, since the migration would involve rewriting substantial parts of the application. This is why Angular2 will not be covert in this work.
+When the MARS Websuite was first developed, Angular 2 was not an option. Right now, there are no plans, to port the application to the new version, since the migration would involve rewriting substantial parts of the application. This is why Angular2 will not be covered in this work.
