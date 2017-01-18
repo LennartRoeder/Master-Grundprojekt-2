@@ -1,13 +1,13 @@
 % !TeX spellcheck = en_US
 
 \chapter{Software Design}
-This chapter evaluates the possibility to use microservices for the WebUI components. It also describes the way, the user takes through the system. Finally the REST APIs consumed by the WebUI are described.
+This chapter evaluates the possibility to use micro-services for the WebUI components. It also describes the way, the user takes through the system. Finally the REST APIs consumed by the WebUI are described.
 
 
 
-\section{Microservices for the WebUI}
+\section{Micro-services for the WebUI}
 \label{sec:MS_for_WebUI}
-The MARS Websuite has been transfered into a microservice architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
+The MARS Websuite has been transfered into a micro-service architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
 The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the behavior for implemented features might differ. As a result, assumptions that made about the software environment, are much weaker. 
 
 
@@ -20,7 +20,7 @@ Therefore modern browsers implement the \textit{same-origin policy} as specified
 Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not recommended, it is also possible to deactivate the strict origin policy.
 
 \subsubsection{Only one initial URL}
-The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other front-end microservices in the back-end, before it is delivered to the users browser.
+The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other front-end micro-services in the back-end, before it is delivered to the users browser.
 
 \subsubsection{Tightly coupled}
 As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect to different pages. That being said, it is not possible to fetch single pages from another service during runtime.
@@ -38,7 +38,7 @@ The iFrame approach renders a frame, that embeds content from a remote location.
 The content of the page can not be cached, which reduces performance. Also the content can not control the size of the frame and is not able to communicate with other frames. While workarounds exist, iFrames are a relict from the 90s and are widely unpopular today. It however is still used for a few use-cases, like video embedding from other sites.
 
 \subsubsection{Edge Side Includes}
-Edge Side Includes (ESI) is a server-side markup language. It is capable of dynamically adding fragments to one page. As this generates substantial CPU load on the server, a Cache like Varnish is used to make it usable in production. Varnish is one of the few options that supports ESI, which is why, it is the most common choice for ESI.\\
+Edge Side Includes (ESI) is a server-side markup language. It is capable of dynamically adding fragments to one page. As this generates substantial CPU load on the server, a Cache like Varnish is used to make it usable in production. Varnish is one of the few options that supports ESI, which is why, it is the most common choice.\\
 This approach requires a high amount of configuration, to make the Varnish work properly. It includes setting the time-to-live (TTL) for the fragments on the page, based on the content.\\
 The way ESI includes resource files like JavaScript, HTML and CSS can not guarantee consistency between the cached versions. This mean that an update in the HTML and JS might deliver the new HTML without the JS, which leads to errors in production.
 
@@ -66,8 +66,8 @@ The MARS Websuite is not build this way. The back-end services provide data and 
 
 
 \subsection{Conclusion}
-Composing a front-end into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. This being said, the effort is only worth it, for very big applications with many developers involved.\\
-Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the back-end services. The afford would be substantial and it is questionable, if the result would be an improvement. The additional complexity introduces potential failures and reduces developers productivity.
+Composing a front-end into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. The additional complexity introduces potential failures and reduces developers productivity.\\
+This being said, the effort is only worth it, for very big applications with many developers involved. Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the back-end services. The afford would be substantial and it is questionable, if the result would be an improvement.
 
 
 
@@ -118,12 +118,7 @@ This step creates a scenario based on a previously uploaded model. During the cr
 
 
 \subsection{Mapping Creation}
-Based on the scenario, the user maps fields for agents, layers and parameters to data imported by the data import or to manual values. This data is then validated with the back-end. Once the user has mapped all required fields successfully, it is possible to start the simulation. As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work. Figure \ref{fig:mapping-screen} shows the mapping UI.
-\begin{figure}[H]
-	\centering\includegraphics[width=1\textwidth]{res/mapping-screen.png}
-	\caption{Mapping page}
-	\label{fig:mapping-screen}
-\end{figure}
+Based on the scenario, the user maps fields for agents, layers and parameters to data imported by the data import or to manual values. This data is then validated with the back-end. Once the user has mapped all required fields successfully, it is possible to start the simulation. As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work.
 
 
 

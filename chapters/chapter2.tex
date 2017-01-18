@@ -7,30 +7,31 @@ This chapter covers the basic technologies and term used throughout the followin
 
 \section{MARS Websuite}
 The MARS Websuite is the web application of the MARS working group. It allows the user to prepare and start simulation runs from within the web browser.\\
-The original Websuite has a monolithic structure, meaning it is a traditional, single application with many responsibilities, parts and technologies. The new Websuite contains of over 20 independent microservices.\\
-This work focuses on extracting the front-end of the fullstack application into a single microservice. While doing so, the inherited components are to be reevaluated, redesigned and if needed, rewritten.
+The original Websuite has a monolithic structure, meaning it is a traditional, single application with many responsibilities, parts and technologies. The new Websuite contains of over 20 independent micro-services.\\
+This work focuses on extracting the front-end of the fullstack application into a single micro-service. While doing so, the inherited components are to be reevaluated, redesigned and if needed, rewritten.
 
 
 
-\section{Microservices}
-\label{sec:microservices}
-Microservices describes a software architecture, where the software is split up into small, independent components. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
+\section{Micro-services}
+\label{sec:micro-services}
+Micro-services describes a software architecture, where the software is split up into small, independent components. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
 
 
 \subsection{Single responsibility}
-Big, monolithic application grow in size and complexity during their existing. This resolves into higher costs for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts. The definition of \enquote{micro} varies. \cite{newman2015building} e.g. claims that microservices should follow the \enquote{Single responsibility principle} by \cite{martin2003agile}. This states that a given component should have only one reason to change.
+Big, monolithic application grow in size and complexity during their existing. This resolves into higher costs for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts.\\
+The definition of how small a service should be varies. \cite{newman2015building} e.g. claims that micro-services should follow the \enquote{Single responsibility} principle by \cite{martin2003agile}. This states that a given component should have only one reason to change.
 
 
 \subsection{Autonomy}
-Each microservice is deployed its own process. The processes communicate with each other via a RESTful API. It is therefore possible to scale up single services as needed, without having to scale the whole application.\\
-Communication between services are no local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Microservice therefore have to be built with resilience, so their capability to work does not depend on other services.
+Micro-services are loosely coupled and deployed separately. Each service runs in its own processes and communicate with other services over a RESTful API. It is therefore possible to scale up single services, without having to scale the whole application.\\
+Communication between services is not done by local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Micro-services therefore have to be built with resilience in mind, so their capability to work does not depend on other services.
 
 
 \subsection{History}
 The concept of handling growing complexity in software is not a new one. The first known approach goes back to Conway's law \cite{conway1968committees}. Conway claims that interfaces should reflect social boundaries within an organization.\\
 A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
-The term microservices was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why microservices are often referred to as \enquote{SOA done right}.\\
-The rise of containerization software like docker, allows to deploy and run services without a substantial overhead. This strongly increased the popularity of microservices over the last 2 years.
+The term micro-services was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why micro-services are often referred to as \enquote{SOA done right}.\\
+The rise of containerization software like docker, allows to deploy and run services without a substantial overhead. This strongly increased the popularity of micro-services over the last 2 years.
 
 
 
@@ -49,7 +50,7 @@ The Angular template is responsible for rendering the logic from the JavaScript 
 
 \noindent\textbf{Filter} -- Angular has build-in filters to reduce or format a given expression. Amongst others, this can be used to format numbers as currency or make a JSON output more readable.\vspace{1ex}
 
-\noindent\textbf{Form controls} --Allows validation of formdata. A field marked as required hat an error CSS class attached, as well as a JavaScript class that allows to easily validate user input.
+\noindent\textbf{Form controls} --Allows validation of form-data. A field marked as required has an error CSS class attached, as well as a JavaScript class that allows to easily validate user input.
 
 
 \subsection{Two Way Data-Binding}
@@ -82,7 +83,7 @@ The View is the HTML, that exists, once Angular has interpreted the template and
 AngularJS brings dependency injection support to JavaScript. It allows the integration of global available dependencies into a specific controller. This ensures the availability of a component to specific controllers only.\\
 It is hereby possible to use existing parts, as well as create own modules that can be used anywhere throughout application. The decoupling of components prevents the necessity for duplicate code and makes it easy to pull in 3rd party dependencies.  
 
-\subsection{Example}
+\subsection{Angular Example}
 The following example takes advantage of the concepts mentioned in the sections above. It shows a simple Angular application that defines a \textit{Fruits} factory, injects it into a controller and uses the ng-repeat directive to iterate over the content. Inside the loop the current fruit is rendered to a list, using the double curly brackets notation.
 
 \begin{lstlisting}[language=javascript, caption=AngularJS directive and controller definition, label=lst:angular]

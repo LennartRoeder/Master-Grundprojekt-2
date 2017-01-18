@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 
 \chapter{Analysis}
-This chapter is about identifying the requirements, needed to transform the application into a microservice front-end.\\
+This chapter is about identifying the requirements, needed to transform the application into a micro-service front-end.\\
 The Analysis first determines use-cases for the system, based on the stakeholders. These use-cases will be converted into requirements, which are distinguished into functional and non-functional. A gap-analysis is finally performed, to compare requirements of the new system to the old implementation. 
 
 
@@ -9,7 +9,7 @@ The Analysis first determines use-cases for the system, based on the stakeholder
 Stakeholders are groups of people with an interest in the system. This interest can be from a practical user based standpoint, as well as from a management standpoint.
 
 \subsection{Model Developer}
-The Model Developer is a technical user that creates a MARS model in cooperation with a domain expert. His main goal is to make sure the model, he created executes correctly and without errors.
+The model developer is a technical user that creates a MARS model in cooperation with a domain expert. His main goal is to make sure the model, he created executes correctly and without errors.
 
 \subsection{Simulation Creator}
 The simulation creator is a domain expert. He uses the model, created by the model developer to answer a research question. The model developer does that by running various simulations with a given model. He adjusts the parameters of the scenario, in order to determine their impact on the result and to prove or to disprove his theories.
@@ -27,7 +27,7 @@ The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administr
 Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-cases do not differ. This is why future sections will reference them as users.
 \begin{figure}[H]
 	\centering\includegraphics[width=1\textwidth]{res/Use-Cases_reduced}
-	\caption{Use-Cases for the Websuite}
+	\caption{Use-cases for the Websuite}
 	\label{fig:use-cases}
 \end{figure}
 
@@ -147,7 +147,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	}
 \end{usecase}
 
-\subsection{Scenario}
+\subsection{Scenarios}
 \begin{usecase}
 	\addtitle{Scenario I}{Create new scenario}
 	\addfield{Summary:}{Create a scenario based on a model.}
@@ -291,16 +291,16 @@ The following table shows the difference between the old Websuite, compared to t
 	The data import supports uploading multiple files with the same metadata (bulk upload). & no & yes \\ \hline
 	Both imports show the processing of the uploaded files in a view, that is displayed independently of the import page. & no & yes \\ \hline
 	The mapping view filters the available data files, so only compatible files are shown. & no & yes \\ \hline
-	The scenario view supports duplicating a scenario. & no & yes \\ \hline
+	The scenario view supports duplicating a scenario. & no & planned \\ \hline
 	Scenarios can be selected from every page. & no & yes \\ \hline
 	The mapping view supports transferring multiple mappings of one file to another one. & no & yes \\ \hline
 	The mapping view filters the available data files, so only compatible files are shown. & no & yes \\ \hline
-	The mapping view lets the the user filter compatible mappings by name and tag. & no & yes \\ \hline
-	The mapping view renders the correct input type depending on the allowed value & does not apply & yes \\ \hline
+	The mapping view lets the the user filter compatible mappings by name and tag. & no & planned \\ \hline
+	The mapping view renders the correct input type depending on the allowed value & doesn't apply & yes \\ \hline
 	The mapping view shows the validation result from the back-end, once a mapping has been saved. & no & yes \\ \hline
 	Input fields for all components only allow the required type of input. & no & yes \\ \hline
 	The data import and model import share one code base (no duplicate code). & no & yes \\ \hline
-	Adding new supported data types can be done in one central place. & no & yes \\ \hline
+	Adding new supported data types can be done in one central place. & no & planned \\ \hline
 	The WebUI does not rely on the existence of other services. & no & yes \\ \hline
 	The WebUI can be deployed into a Kubernetes cluster. & no & yes \\ \hline
 	\end{tabularx}
