@@ -22,7 +22,7 @@ The Administrator is a global user with far reaching permission inside the syste
 
 
 \section{Use-cases}
-The workflow that includes completing all the necessary steps to start a simulation can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results}. This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
+The workflow that includes completing all the necessary steps to start a simulation can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results} (see section \ref{sec:workflow}). This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
 The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administrative purposes only. They are also not in the scope of this paper.\\
 Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-cases do not differ. This is why future sections will reference them as users.
 \begin{figure}[H]
@@ -36,12 +36,12 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	\addtitle{Import I}{Data}
 	\addfield{Summary:}{Upload local data files to the Websuite, to use them for a simulation. The following data types have to be supported: 
 	\begin{itemize}
-		\item Geo-potential-field data
-		\item Grid-potential-field data
-		\item Obstacle-layer data
-		\item Table-based data
-		\item Time-series data
-		\item GIS data
+		\item Geo-potential-field data (.csv)
+		\item Grid-potential-field data (.csv)
+		\item Obstacle-layer data (.csv)
+		\item Table-based data (.csv)
+		\item Time-series data (.csv)
+		\item GIS data (.asc, .tif, .shp)
 	\end{itemize}
 	}
 	\additemizedfield{Actors:}{
@@ -122,10 +122,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 		\item Files have been imported
 	}
 	\additemizedfield{Primary Scenario:}{
-		\item The user checks the status of multible imported files by searching for them.
-	}
-	\additemizedfield{Alternative Scenario:}{
-		\item none
+		\item The user checks the status of multible imported files by searching for them. As a result he sees \textit{Finished} or \textit{Failed}.
 	}
 \end{usecase}
 
@@ -141,9 +138,6 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	}
 	\additemizedfield{Primary Scenario:}{
 		\item The user clicks on a specific import entry and views the metadata inside a modal window.
-	}
-	\additemizedfield{Alternative Scenario:}{
-		\item none
 	}
 \end{usecase}
 
@@ -161,9 +155,6 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	\additemizedfield{Primary Scenario:}{
 		\item The user clicks the "add Scenario" button. Inside the new modal, he specifies a name, selects a model and saves the new scenario.
 	}
-	\additemizedfield{Alternative Scenario:}{
-		\item none
-	}
 \end{usecase}
 
 \begin{usecase}
@@ -179,9 +170,6 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	}
 	\additemizedfield{Primary Scenario:}{
 		\item The user clicks the "clone Scenario" button. Inside the new modal, he changes the name and description and saves the new scenario.
-	}
-	\additemizedfield{Alternative Scenario:}{
-		\item none
 	}
 \end{usecase}
 
@@ -199,9 +187,6 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	}
 	\additemizedfield{Primary Scenario:}{
 		\item The user connects the required fields to a dataset. He then sets the global parameters for the simulation.
-	}
-	\additemizedfield{Alternative Scenario:}{
-		\item none
 	}
 \end{usecase}
 

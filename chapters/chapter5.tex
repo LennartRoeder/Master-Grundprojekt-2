@@ -22,8 +22,8 @@ Almost every application depends on third-party components. Manually managing de
 This is why the WebUI uses the \textit{Node Package Manager} (NPM) and Bower. NPM is responsible for managing NodeJS dependencies that are used for tooling and serving the Angular app. Bower takes care of the front-end libraries. Both tools depend on a JSON file that lists the needed dependencies, as well as their required version. This guarantees that any deployment of the app uses the correct version of any used library.
 
 
-\subsection{Task Runner}
-A task runner allows to run various tasks that are used during the development process. The WebUI uses Gulp, which is responsible for executing the following tasks.
+\subsection{Build Automation}
+Build automation tools allows to run various tasks that are used during development and to prepare the application for production. The WebUI uses Gulp, which is responsible for executing the following tasks.
 
 \subsubsection{Live reload} Restarts the application and reloads the website inside the browser, once the source code has changed. It is only used for development.
 
@@ -33,15 +33,15 @@ A task runner allows to run various tasks that are used during the development p
 
 \subsubsection{Uglifying} Renames variables and functions to single character names to reduce the size of the served files in production.
 
-\subsubsection{minifying} Removes spaces and line-breaks, to further reduce the file size in production.
+\subsubsection{Minifying} Removes spaces and line-breaks, to further reduce the file size in production.
 
 \subsubsection{Compiling SCSS}
-Compiles the SCSS styles to CSS. For further information see section \ref{sec:styling}.
+Compiles the \textit{Sassy CSS} (SCSS) styles to CSS. For further information see section \ref{sec:styling}.
 
 
 \subsection{Initial Configuration}
 \label{sec:initial_config}
-The tasks above need to be configured, to match the development work-flow and the used file structure. This initial configuration was created with a tool called \textit{generator-gulp-angular} and modified to match the actual need for the WebUI. Additionally the generator created the file structure, used by the new WebUI.
+The tasks above need to be configured, to match the development work-flow and the used file structure. This initial configuration was created with \textit{generator-gulp-angular}\footnote{\url{https://github.com/Swiip/generator-gulp-angular}} and modified to match the actual need for the WebUI. Additionally the generator created the file structure.
 
 
 
@@ -70,10 +70,10 @@ Once the user starts the upload, the files are successively send to the \textit{
 
 
 \subsubsection{Data View}
-The migration of the data view did not require any special changes. The REST calls were extracted, the CSS was cleaned up and the code was refactored to improve the maintenance.
+The migration of the data view did not require any major changes. The REST calls were extracted, the CSS was cleaned up and the code was refactored to improve the maintenance.
 
 \subsubsection{Scenario Creation}
-The Scenario Creation is a new component that did not exist in this form previously. Its only purpose is to list existing scenarios and allow the creation of new once. When creating a new scenario, a model is specified. The Scenario-management-service adds the mapping fields, based on the models reflection result. This is used in the mapping component. Once a new scenario has been created, the list of scenarios gets refreshed. The whole work-flow is shown by figure \ref{fig:scenario}.
+The Scenario Creation is a new component that did not exist in this form previously. Its only purpose is to list existing scenarios and allow the creation of new ones. When creating a new scenario, a model is specified. The Scenario-management-service adds the mapping fields, based on the models reflection result. This is used in the mapping component. Once a new scenario has been created, the list of scenarios gets refreshed. The whole work-flow is shown by figure \ref{fig:scenario}.
 \begin{figure}[H]
 	\centering\includegraphics[width=.60\textwidth]{res/Scenario}
 	\caption{Scenario}
@@ -101,7 +101,7 @@ Once a save is triggered, the data is sent to the scenario-management-service an
 \label{sec:long-polling}
 Long-polling is used between the WebUI and the Metadata Service to report the current processing status of an import.\\
 To trigger long-polling, the WebUI sends an GET request to the \textit{Metadata Service} and and \enquote{init} as the current state. The server responds with the current state and the WebUI from now on sends a new request, every time it receives a response, appending the current state. The Metadata Service delays the answers, until the state has changed. This process is repeated until the import is either successful or failed.\\
-The goal was to always have the current state, without having to constantly poll the back-end. The way HTTP calls work, does not allow the server to send a message to the client, without a previous request. This can be solved by sockets. For technical reasons, this was not an option. Therefore long-polling is the best solution for the moment.
+The goal was to always have the current state, without having to constantly poll the back-end. The way HTTP calls work, does not allow the server to send a message to the client, without a previous request. This can be solved by sockets. For technical limitation of the edge service, this was not an option. Therefore long-polling is the best solution for the moment.
 
 \subsection{Boundary Factories}
 During the migration, all REST calls were extracted into factories. They serve as a boundary to other services and are the single point that communicates to other components. This means, they execute REST calls to the back-end services and interact with the browsers local storage to persist certain settings (e.g. the selected scenario).\\
@@ -120,7 +120,7 @@ vm.alerts.add('Implicit default');
 vm.alerts.add('Something went wrong', 'danger');
 \end{lstlisting}
 \begin{figure}[H]
-	\centering\includegraphics[width=1\textwidth]{res/alert_square}
+	\centering\includegraphics[width=1\textwidth]{res/alerts}
 	\caption{Error handling result}
 \end{figure}
 
@@ -129,5 +129,5 @@ vm.alerts.add('Something went wrong', 'danger');
 \label{sec:styling}
 The styling of the old application was discarded, because it contained many lines of self-written CSS that had no unified look and was not responsive for the most part. Instead the layout is done using bootstrap with minimal adjustments at certain points.\\
 To prevent visual side effects in other components, every html template is wrapped in a div, with its components name as the id. The CSS file for every component is only applied to children of this id.\\
-To further improve the simplicity of the styling \textit{Sassy CSS} (SCSS) was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like \textit{variables}, \textit{reusable} \textit{components}, \textit{loops} and \textit{nesting}.\\
+To further improve the simplicity of the styling SCSS was used to write styles. SCSS is a CSS preprocessor that is compiled to CSS and adds features like \textit{variables}, \textit{reusable} \textit{components}, \textit{loops} and \textit{nesting}.\\
 The fact that it uses CSS syntax, allows a smooth transition, because the developer can use it like normal CSS and make use of the additional features when ever he desires.

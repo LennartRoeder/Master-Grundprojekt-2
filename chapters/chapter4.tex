@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 
 \chapter{Software Design}
-This chapter evaluates the possibility to use micro-services for the WebUI components. It also describes the way, the user takes through the system. Finally the REST APIs consumed by the WebUI are described.
+This chapter evaluates the possibility to split the WebUI into several components. It also describes the way, the user takes through the system. Finally the REST APIs consumed by the WebUI are described.
 
 
 
@@ -72,6 +72,7 @@ This being said, the effort is only worth it, for very big applications with man
 
 
 \section{Workflow}
+\label{sec:workflow}
 To create a successful simulation-run in MARS, certain steps have to be taken. The WebUI implements this workflow from the data import to the execution. Figure \ref{fig:dependency-workflow} shows the single components and the order, they have to be executed in.
 
 \begin{figure}[H]
@@ -114,7 +115,7 @@ The Model Import allows the upload of a zip-files, containing the DLLs of the mo
 
 
 \subsection{Scenario Creation}
-This step creates a scenario based on a previously uploaded model. During the creation, fields that need to be mapped in the following step are determined.
+This step creates a scenario based on a previously uploaded model. During the creation, fields that need to be mapped, are determined in the following step .
 
 
 \subsection{Mapping Creation}

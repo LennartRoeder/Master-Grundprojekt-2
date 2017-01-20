@@ -17,45 +17,65 @@ This work focuses on extracting the front-end of the fullstack application into 
 Micro-services describes a software architecture, where the software is split up into small, independent components. These components are loosely coupled and communicate over the network. Each so called service runs in its own process and potentially on a different machine.
 
 
+\subsection{History}
+The concept of handling growing complexity in software is not a new one. The first known approach goes back to \citeauthor{conway1968committees}'s law \citeyearpar{conway1968committees}. He claims that interfaces should reflect social boundaries within an organization.\\
+A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
+The term micro-services was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why micro-services are often referred to as \enquote{SOA done right}.\\
+The rise of containerization software like docker, allows to deploy and run services with significantly reduced overhead, compared to virtual machines. This strongly increased the popularity of micro-services over the last 2 years.
+
+
 \subsection{Single responsibility}
-Big, monolithic application grow in size and complexity during their existing. This resolves into higher costs for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts.\\
-The definition of how small a service should be varies. \cite{newman2015building} e.g. claims that micro-services should follow the \enquote{Single responsibility} principle by \cite{martin2003agile}. This states that a given component should have only one reason to change.
+Big, monolithic application grow in size and complexity during their existence. This resolves in higher costs for maintenance and enhancements. Microservices reduce complexity by splitting the application into smaller logical parts.\\
+The definition of how small a service should be varies, \cite{newman2015building} e.g. claims that micro-services should follow the \enquote{Single responsibility} principle by \cite{martin2003agile}. This states that a given component should have only one reason to change.
 
 
 \subsection{Autonomy}
-Micro-services are loosely coupled and deployed separately. Each service runs in its own processes and communicate with other services over a RESTful API. It is therefore possible to scale up single services, without having to scale the whole application.\\
-Communication between services is not done by local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in a different network. Micro-services therefore have to be built with resilience in mind, so their capability to work does not depend on other services.
-
-
-\subsection{History}
-The concept of handling growing complexity in software is not a new one. The first known approach goes back to Conway's law \cite{conway1968committees}. Conway claims that interfaces should reflect social boundaries within an organization.\\
-A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
-The term micro-services was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why micro-services are often referred to as \enquote{SOA done right}.\\
-The rise of containerization software like docker, allows to deploy and run services without a substantial overhead. This strongly increased the popularity of micro-services over the last 2 years.
+Micro-services are loosely coupled and deployed separately. Each service runs in its own processes and communicate with other services over the network layer. It is therefore possible to scale up single services, without having to scale the whole application.\\
+Communication between services is not done by local system calls, like in a monolithic application. This means, that the communication partner is within a different trust boundary and potentially in another network. Micro-services therefore have to be built with resilience in mind, so the failure of single services does not lead to an overall system failure.
 
 
 
 \section{AngularJS}
 \label{sec:angularjs}
-The front-end is written with the JavaScript framework AngularJS v1.5. AngularJS was created by Miško Hevery at Brat Tech LLC in the year 2010 and is under active development by Google Inc. \\
-The framework extends HTML5 and JavaScript by various paradigms and patterns. This makes the development of single-page web applications more appealing. The most relevant features are the \textit{Templating Engine}, \textit{Two Way Data-Binding}, \textit{Model–view–viewmodel} and \textit{Dependency Injection}.
+The WebUI front-end is written with the JavaScript framework AngularJS v1.5. Angular was created by Miško Hevery at Brat Tech LLC in the year 2010 and is under active development by Google Inc. \\
+The framework extends HTML5 and JavaScript by various paradigms and patterns, in order to make the development of single-page web applications more appealing. The most relevant features are the \textit{Templating Engine}, \textit{Two Way Data-Binding}, \textit{Model–view–viewmodel} and \textit{Dependency Injection}.
 
 
 \subsection{Template Engine}
-The Angular template is responsible for rendering the logic from the JavaScript controller into the HTML. This is either done by the curly braces syntax which wraps the expression into double curly braces or by custom HTML tags, called directives.\vspace{1ex}
+The Angular template is the HTML code, written by the developer. Angular combines this HTML with the model data to render a dynamic view. It has the following usages.
 
-\noindent\textbf{Directives} -- Are Angular's method of extending HTML by new elements with JavaScript logic attached. This can be used to create reusable, parameterized components.\vspace{1ex}
+\subsubsection{Directives}
+Directives are Angular's method of extending HTML by new elements with JavaScript logic attached. This can be used to create reusable, parameterized components.
 
-\noindent\textbf{Markup} -- Variables from the controller can be referenced by the double curly brackets notation.\vspace{1ex}
+\subsubsection{Markup}
+The templating engine allows the user to reference models from the controller to enrich the HTML with model data. This i done with the double curly brackets notation.
 
-\noindent\textbf{Filter} -- Angular has build-in filters to reduce or format a given expression. Amongst others, this can be used to format numbers as currency or make a JSON output more readable.\vspace{1ex}
+\subsubsection{Filter}
+Filters allow formating of input data inside the HTML. Angular has build-in filters for common tasks like formating \textit{numbers} \textit{currencies} or \textit{dates} as well as converters to \textit{uppercase} or \textit{lowercase}. It is also possible to create custom filters based on individual needs.
 
-\noindent\textbf{Form controls} --Allows validation of form-data. A field marked as required has an error CSS class attached, as well as a JavaScript class that allows to easily validate user input.
+\subsubsection{Form controls}
+The use of form controls allows the validation of form-data in real time. Form elements can be validated against certain gates to detect false user input before it is sent to the back-end.\\
+This is possible, because every form field has a JavaScript class that holds validation data. Also CSS error classes exist, which allow to easily visualize false inputs.
+
+
+\subsection{Model–view–viewModel (MVVM)}
+Angular takes advantage of the \textit{Model View Controller} (MVC) pattern, which separates the model that holds the data, the view that is displayed to the user and the controller that holds the logic.\\
+Angular's implementation is closer to an Model–view–viewModel (MVVM) approach. The viewModel is directly serving the view. Besides containing the controller logic, it also holds functions for converting data, which keeps the view clean of logic.
+
+\subsubsection{Model}
+The Model  is responsible for storing the current state of the application.
+
+\subsubsection{View}
+The View is the HTML, that exists, once Angular has interpreted the template and the appertaining data.
+
+\subsubsection{ViewModel}
+The viewModel manages the data consistency between the model and the view. The Controller sets the initial state of the ViewModel and adds values and functions to it. This added functionality defines the behavior of the application. Inside the view, data can also be read and alerted. This data is propagated back to the model.
 
 
 \subsection{Two Way Data-Binding}
 \label{sec:tw-binding}
-Data in Angular is bound to a Model, which always holds the most recent state of the application. Changes to the data are always passed to the model and read from it. This means that the controller and the view always have the same state of the data. The need to write boilerplate code, for transferring states between the HTML view and the JavaSript controller is hereby removed. Figure \ref{fig:tw-databinding} emphasizes this.
+Angular's two way data-binding is responsible for the communication of MVVM components. The data is bound to a Model, which always holds the most recent state of the application. Changes to the data are always passed to the model and read from it. This means that the controller and the view always operate on the same state. This process is visualized in figure \ref{fig:tw-databinding}.\\
+The need to write boilerplate code, for transferring states between the HTML view and the JavaScript controller is hereby removed.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.5\textwidth]{res/Two_Way_Data_Binding}
@@ -64,27 +84,16 @@ Data in Angular is bound to a Model, which always holds the most recent state of
 \end{figure}
 
 
-\subsection{Model–view–viewmodel (MVVM)}
-Angular takes advantage of the Model View Controller (MVC) pattern. The implementation however is closer to an Model–view–viewmodel (MVVM) approach. 
-
-\subsubsection{Model}
-The Model in Angular is responsible for storing the current state of the application. Since the model is a simple JavaScript object, no boilerplate for getting and setting data is necessary.
-
-\subsubsection{ViewModel}
-The ViewModel is an object that manages specific views and stores the data that is passed between the Controller and the View. In the past, this was done, by injecting \$scope into the controller. Since Angular 1.5 the recommended way is to create a ViewModel variable like shown in listing \ref{lst:angular}.
-
-\subsubsection{Controller}
-The Controller sets the initial state of the ViewModel and adds values and functions to it. This added functionality defines the behavior of the application. It is worth noting that the Controller does not store any state and that it is not responsible for the communication between services.
-
-\subsubsection{View}
-The View is the HTML, that exists, once Angular has interpreted the template and the appertaining data.
-
 \subsection{Dependency Injection (DI)}
-AngularJS brings dependency injection support to JavaScript. It allows the integration of global available dependencies into a specific controller. This ensures the availability of a component to specific controllers only.\\
-It is hereby possible to use existing parts, as well as create own modules that can be used anywhere throughout application. The decoupling of components prevents the necessity for duplicate code and makes it easy to pull in 3rd party dependencies.  
+Dependency injection (DI) is a specialization of the \textit{inversion of control} pattern and has been named by \cite{fowler2004inversion}. \\
+AngularJS adds DI to JavaScript, which allows the integration of dependencies into a specific controller, without making it globally available in the application. This ensures the availability of a component to specific controllers only.\\
+It is hereby possible to use existing components and create own modules that can be used anywhere throughout application. This allows decoupling of components, prevents the necessity for duplicate code and makes it easy to pull in 3rd party dependencies. 
+
 
 \subsection{Angular Example}
-The following example takes advantage of the concepts mentioned in the sections above. It shows a simple Angular application that defines a \textit{Fruits} factory, injects it into a controller and uses the ng-repeat directive to iterate over the content. Inside the loop the current fruit is rendered to a list, using the double curly brackets notation.
+The following example takes advantage of the concepts mentioned in the sections above. \\
+Line 2 of listing \ref{lst:angular} defines the \textit{Fruits} factory. It returns a get get function, returning an array of fruits. In line 10, the \textit{FruitCtrl} controller is initiated. It uses dependency injection to take advantage of the Fruits factory. In line 11 the viewModel that is used to communicate with the view, is initiated. The following line adds a \textit{fruits} variable to the viewModel and calls the get function on the injected Fruits.\\
+The view in listing \ref{lst:angular-view} specifies the angular app and the controller in line 1. In line 3, the \textit{ng-repeat} directive is used to iterate over the fruits from the viewModel. Listing \ref{lst:angular-result} shows the result.
 
 \begin{lstlisting}[language=javascript, caption=AngularJS directive and controller definition, label=lst:angular]
 angular.module("myApp", [])
@@ -96,13 +105,13 @@ angular.module("myApp", [])
     };
   })
   
-  .controller("FruitController", function(Fruits) { // inject Fruits
+  .controller("FruitCtrl", function(Fruits) { // inject Fruits
     var vm = this; // ViewModel
     vm.fruits = Fruits.get(); // call directive
   });
 \end{lstlisting}
 
-\begin{lstlisting}[language=html, caption=AngularJS template]
+\begin{lstlisting}[language=html, caption=AngularJS template, label=lst:angular-view]
 <div ng-app="myApp" ng-controller="FruitController as fruitCtrl">
   <ul>
     <li ng-repeat="fruit in fruitCtrl.fruits">
@@ -112,7 +121,7 @@ angular.module("myApp", [])
 </div>
 \end{lstlisting}
 
-\begin{lstlisting}[language=html, caption=HTML result]
+\begin{lstlisting}[language=html, caption=HTML result, label=lst:angular-result]
 <ul>
   <li>apple</li>
   <li>orange</li>
@@ -121,6 +130,6 @@ angular.module("myApp", [])
 \end{lstlisting}
 
 
-\subsection{Angular2}
-On September 14th 2016, Angular 2 stable was first released. Version 2 is a complete rewrite of the original AngularJS implementation and therefore offers no direct update path.\\
-When the MARS Websuite was first developed, Angular 2 was not an option. Right now, there are no plans, to port the application to the new version, since the migration would involve rewriting substantial parts of the application. This is why Angular2 will not be covered in this work.
+%\subsection{Angular2}
+%On September 14th 2016, Angular 2 stable was first released. Version 2 is a complete rewrite of the original AngularJS implementation and therefore offers no direct update path.\\
+%When the MARS Websuite was first developed, Angular 2 was not an option. Right now, there are no plans, to port the application to the new version, since the migration would involve rewriting substantial parts of the application. This is why Angular2 will not be covered in this work.
