@@ -8,7 +8,7 @@ This chapter describes the technical implementation of the transition process sh
 	\label{fig:websuite-migration}
 \end{figure}
 
-The old JavaScript stack, containing of an AngularJS front-end and an NodeJS back-end with connections to the C$\sharp$ code, over EdgeJS was replaced. The NodeJS components were migrated to several micro-services and the front-end was converted to a WebUI micro-service that consists of an AngularJS front-end with a thin layer of NodeJS to host the application.\\
+The old JavaScript stack, containing an AngularJS front-end and NodeJS back-end with connections to the C$\sharp$ code, over EdgeJS was replaced. The NodeJS components were migrated to several micro-services and the front-end was converted to a WebUI micro-service that consists of an AngularJS front-end with a thin layer of NodeJS to host the application. Converting the back-end is not part of this work.\\
 The process of migrating to the new structure is complete and the old monolithic Websuite is not used anymore.
 
 
@@ -46,7 +46,7 @@ The tasks above need to be configured, to match the development work-flow and th
 
 
 \section{Migrating the application}
-While it was possible to strip out old parts and reuse the old Websuite's code-base, this was not done. Instead, a completely new structure with tested tooling was created, using the previously mentioned generator-gulp-angular (see section \ref{sec:initial_config}). This guaranteed that no old code was left inside the application, which could cause problems in the future.\\
+While it was possible to strip out old parts and reuse the old Websuite's code-base, this was not done. Instead, a completely new structure with tested tooling was created, using the previously mentioned generator-gulp-angular (see section \ref{sec:initial_config}). This guaranteed that no unused code was left inside the application, which could cause problems in the future.\\
 
 
 \subsection{Components}
@@ -100,11 +100,11 @@ Once a save is triggered, the data is sent to the scenario-management-service an
 \subsection{Long-polling}
 \label{sec:long-polling}
 Long-polling is used between the WebUI and the Metadata Service to report the current processing status of an import.\\
-To trigger long-polling, the WebUI sends an GET request to the \textit{Metadata Service} and and \enquote{init} as the current state. The server responds with the current state and the WebUI from now on sends a new request, every time it receives a response, appending the current state. The Metadata Service delays the answers, until the state has changed. This process is repeated until the import is either successful or failed.\\
+To trigger long-polling, the WebUI sends a GET request to the \textit{Metadata Service} and and \enquote{init} as the current state. The server responds with the current state and the WebUI from now on sends a new request, every time it receives a response, appending the current state. The Metadata Service delays the answers, until the state has changed. This process is repeated until the import is either successful or failed.\\
 The goal was to always have the current state, without having to constantly poll the back-end. The way HTTP calls work, does not allow the server to send a message to the client, without a previous request. This can be solved by sockets. For technical limitation of the edge service, this was not an option. Therefore long-polling is the best solution for the moment.
 
 \subsection{Boundary Factories}
-During the migration, all REST calls were extracted into factories. They serve as a boundary to other services and are the single point that communicates to other components. This means, they execute REST calls to the back-end services and interact with the browsers local storage to persist certain settings (e.g. the selected scenario).\\
+During the migration, all REST calls were extracted into factories. They serve as boundary to other services and are the single point that communicates to other components. This means, they execute REST calls to the back-end services and interact with the browsers local storage to persist certain settings (e.g. the selected scenario).\\
 Besides executing the actual REST calls, the factories are responsible for converting remote inputs to the local structure and vice versa.\\
 This design ensures that API changes need to be adopted at one single place which holds the truth for all data coming in and out of the WebUI.
 

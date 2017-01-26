@@ -8,14 +8,14 @@ This chapter evaluates the possibility to split the WebUI into several component
 \section{Micro-services for the WebUI}
 \label{sec:MS_for_WebUI}
 The MARS Websuite has been transfered into a micro-service architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
-The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the behavior for implemented features might differ. As a result, assumptions that made about the software environment, are much weaker. 
+The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the behavior for implemented ones might differ. As a result, assumptions made about the software environment, are much weaker. 
 
 
 \subsection{Constraints}
-The constraints mentioned above, bring certain restrictions which are for technical and security reason. They are described in the following section.
+The constraints mentioned above, bring certain restrictions which are for technical and security reasons. They are described in the following section.
 
 \subsubsection{Cross-origin Issue}
-Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage (usually \textit{http\{s\}://localhost/}). These kinds of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
+Cross-origin requests are API calls to an IP or port other than the one, that provided the original webpage. These kinds of requests can reveal confidential information stored in the session or a cookie inside the browser to a third party.\\
 Therefore modern browsers implement the \textit{same-origin policy} as specified in the \textit{RFC 6454 -- The Web Origin Concept} by \cite{barth2011web}, which discourages or blocks cross-origin requests, depending on the browser.\\
 Write access to cross-origin locations are excluded, so are certain tags. Among them are \textit{<a>} \textit{<img>}, \textit{<video>}, \textit{<iframe>} and \textit{@font-face}. While not recommended, it is also possible to deactivate the strict origin policy.
 
@@ -23,7 +23,7 @@ Write access to cross-origin locations are excluded, so are certain tags. Among 
 The user opens a website by typing an URL to the address-bar of his browser. This implies, that one endpoint delivers the whole side. This page has to either load other parts dynamically, or has to aggregate the content of the other front-end micro-services in the back-end, before it is delivered to the users browser.
 
 \subsubsection{Tightly coupled}
-As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect to different pages. That being said, it is not possible to fetch single pages from another service during runtime.
+As mentioned in Section \ref{sec:angularjs}, the Websuite consists of an AngularJS single-page application. This implies, that it is indeed a single page, that uses routing to redirect to different views. That being said, it is not possible to fetch files from another service during runtime, because Angular does not support lazy loading.
 
 \subsection{Possible Solutions}
 The cross-origin issue is quite common for any site that has more than one back-end to communicate with. The solution is, to deliver the whole page and all the consumed REST endpoints over a reverse proxy.\\
@@ -61,13 +61,13 @@ Web Components seem like a promising development towards native support for deco
 \subsection{General considerations}
 Splitting front-ends into small services seems like an interesting thought. However, each of the approaches has downsides and that does not even consider some shared issues.\\
 Modern front-ends require a substantial amount of other code to function. These dependencies are all transfered to the client's browser prior to execution. This requires very strict control of the dependencies and their version to prevent additional load or incompatibilities.\\
-For the reasons mentioned above, most cases of composed front-ends take advantage of the \textit{Back-end for Front-end (BFF)} pattern, which keeps dependencies and code in the front-end to a minimum and builds back-ends directly tailored to the front-end.\\
+For the reasons mentioned above, most cases of composed front-ends take advantage of the \textit{Back-end for Front-end (BFF)} pattern by \cite{newman2015bff}, which keeps dependencies and code in the front-end to a minimum and builds back-ends directly tailored to the front-end.\\
 The MARS Websuite is not build this way. The back-end services provide data and the WebUI contains a lot of logic to prepare and convert data in both directions. The AngularJS framework and its dependencies are not very lightweight either.\\
 
 
 \subsection{Conclusion}
-Composing a front-end into multiple parts, requires to consider many aspects. While there are solutions, the afford is not to be underestimated with the currently available technologies. The additional complexity introduces potential failures and reduces developers productivity.\\
-This being said, the effort is only worth it, for very big applications with many developers involved. Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the back-end services. The afford would be substantial and it is questionable, if the result would be an improvement.
+Composing a front-end into multiple parts, requires to consider many aspects. While there are solutions, the effort is not to be underestimated with the currently available technologies. The additional complexity introduces potential failures and reduces developers productivity.\\
+This being said, the effort is only worth it, for very big applications with many developers involved. Moving the MARS WebUI to such a technology would mean to completely rebuild it and reworking the back-end services. The effort would be substantial and it is questionable, whether the result would be an improvement.
 
 
 
@@ -89,7 +89,7 @@ The data import lets the user add files to the system. These files feed the simu
 This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
 
 \subsubsection{Time-series}
-The time-series import supports CSV-files with data that changes over time. An example is a layer, containing average temperatures per day over the duration of the desired simulation time.
+The time-series import supports CSV-files with data that changes over time. An example is data, containing average temperatures per day over the duration of the desired simulation time.
 
 \subsubsection{Geographic-Information-System (GIS)}
 Data with a geographical representation can be imported with the GIS import. It supports the most common file types for GEO-processing, which are:
@@ -104,14 +104,14 @@ Data with a geographical representation can be imported with the GIS import. It 
 This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
 
 \subsubsection{Geo-potential-field}
-The Geo-potential-field layer is a specialized grid-potential-field layer that allows the use of GPS coordinates. The file-ending is \textit{.csv}.
+Geo-potential-field is a specialized grid-potential-field that allows the use of GPS coordinates. The file-ending is \textit{.csv}.
 
 \subsubsection{Obstacle-layer}
 Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
 
 
 \subsection{Model Import}
-The Model Import allows the upload of a zip-files, containing the DLLs of the model code. This is used in the scenario creation.
+The Model Import allows the upload of zip-files, containing the model code. This is used in the scenario creation.
 
 
 \subsection{Scenario Creation}
