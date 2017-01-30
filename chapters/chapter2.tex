@@ -11,6 +11,35 @@ The original Websuite has a monolithic structure, meaning it is a traditional, s
 This work focuses on extracting the front-end of the fullstack application into a single micro-service. While doing so, the inherited components are to be reevaluated, redesigned and if needed, rewritten.
 
 
+\subsection{Data Types}
+\label{sec:data-types}
+The Websuite supports several data types, which are used to initial the layers inside the actual simulation.
+
+\subsubsection{Table-based}
+This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
+
+\subsubsection{Time-series}
+The time-series import supports CSV-files with data that changes over time. An example is data, containing average temperatures per day over the duration of the desired simulation time.
+
+\subsubsection{Geographic-Information-System (GIS)}
+Data with a geographical representation can be imported with the GIS import. It supports the most common file types for GEO-processing, which are:
+\begin{itemize}
+	\item AciiGrid (*.asc)
+	\item GeoTIFF (*.tif)
+	\item GeoJSON (*.json)
+	\item Shapefile (*.shp, *.shx, *.dbf and additional optional files)
+\end{itemize}
+
+\subsubsection{Grid-potential-field}
+This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
+
+\subsubsection{Geo-potential-field}
+Geo-potential-field is a specialized grid-potential-field that allows the use of GPS coordinates. The file-ending is \textit{.csv}.
+
+\subsubsection{Obstacle}
+Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
+
+
 
 \section{Micro-services}
 \label{sec:micro-services}

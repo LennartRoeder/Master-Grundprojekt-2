@@ -83,32 +83,7 @@ To create a successful simulation-run in MARS, certain steps have to be taken. T
 
 
 \subsection{Data Import}
-The data import lets the user add files to the system. These files feed the simulation with the information it needs. An example would be a time-series file that contains temperature values over time. The Websuite currently supports the following data types. All of the mentioned import types can be compressed inside a zip-file.
-
-\subsubsection{Table-based}
-This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
-
-\subsubsection{Time-series}
-The time-series import supports CSV-files with data that changes over time. An example is data, containing average temperatures per day over the duration of the desired simulation time.
-
-\subsubsection{Geographic-Information-System (GIS)}
-Data with a geographical representation can be imported with the GIS import. It supports the most common file types for GEO-processing, which are:
-\begin{itemize}
-	\item AciiGrid (*.asc)
-	\item GeoTIFF (*.tif)
-	\item GeoJSON (*.json)
-	\item Shapefile (*.shp, *.shx, *.dbf and additional optional files)
-\end{itemize}
-
-\subsubsection{Grid-potential-field}
-This data type allows the usage of potential-fields, which contains a grid of percentage values. These grids allow the calculation of distances to non moving objects prior to the simulation and hereby reduce simulation time. The file-ending is \textit{.csv}
-
-\subsubsection{Geo-potential-field}
-Geo-potential-field is a specialized grid-potential-field that allows the use of GPS coordinates. The file-ending is \textit{.csv}.
-
-\subsubsection{Obstacle-layer}
-Obstacle-layer is a gird that contains obstacles. This can be used to limit agent movement. The file-ending is \textit{.csv}.
-
+The data import lets the user add files to the system. These files feed the simulation with information it needs. An example would be a time-series file that contains temperature values over time. The data types are explained in section \ref{sec:data-types}. All the mentioned types can also be uploaded as zip-files.
 
 \subsection{Model Import}
 The Model Import allows the upload of zip-files, containing the model code. This is used in the scenario creation.

@@ -110,13 +110,25 @@ This design ensures that API changes need to be adopted at one single place whic
 
 
 \subsection{Error Handling}
-The WebUI is the component that stands between the user and the back-end services. Therefore it is essential, to provide the user with proper feedback, if an error accrues.\\
-This is why, an error factory exists that gives an easy way to generate user feedback. The input is a mandatory error message and an optional error type. The type controlles the color of the feedback. Once invoked, an error message is displayed with a button to discard it. The messages are also distinct, which prevents duplicate messages. The following listing shows an example. 
+The WebUI is the component that stands between the user and the back-end services. Therefore it is essential, to provide the user with proper feedback, if an error accrues.
+
+\subsubsection{User Guidance}
+The user is presented with messages that tell him what has to be done, in order to complete the work-flow.\\
+E.g. if no scenario is selected inside the mapping service, the user is presented with a message that tells him to select a scenario. Additionally a Link to the Scenario creation and a \textit{select box} for selecting a scenario are shown, to guide the user. If a scenario is selected, the message is being hidden and replaced by a message that tells the user how to use the component.
+
+\subsubsection{Implementation}
+The error handling uses an error factory that allows an easy way to generate user feedback. The input is a mandatory error message and an optional error type. The type controls the color of the feedback. Once invoked, an error message is displayed with a button to discard it. The messages are also distinct, which prevents duplicate messages. Errors can also be removed with the remove message. The following listing shows an example. 
 \begin{lstlisting}[language=javascript, caption=Error handling]
 vm.alerts.add('It worked', 'success');
 vm.alerts.add('It worked', 'success');
+
+vm.alerts.add('Remove me', 'success');
+vm.alerts.remove('Remove me');
+
 vm.alerts.add('A warning', 'warning');
+
 vm.alerts.add('Implicit default');
+
 vm.alerts.add('Something went wrong', 'danger');
 \end{lstlisting}
 \begin{figure}[H]

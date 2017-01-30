@@ -5,8 +5,11 @@
 
 
 \section{Summary}
-The Monolithic Websuite was transfered into a micro-service based application. This work covered the migration of the front-end into a separate service.\\
-The use-cases defined in section \ref{sec:requirements} have been implemented, with few exceptions,  which is still work in progress. The user work-flow is completely implemented and is being used by the model developers. The Tooling of the new WebUI proved to be much more stable, than the old one. Errors during the deployment process are not an issue anymore. Since the migration, the stability of the application has been increased. This is mainly due to the removal of the error prone EdgeJS calls, which have been replaced with properly handled REST calls. The migration of the single components improved the code quality and reduced the amount of technical depth.
+The Monolithic Websuite was transfered into a micro-service based application. This work covered the redesign of the front-end as a separate service. As part of this redesign, the components of the WebUI have been aligned in terms of usability and visual appearing.\\
+The requirements in section \ref{sec:requirements} have been implemented. This involves the support of additional data types for the import, a model upload as a separate component and the complete rewrite of the mapping work-flow.\\
+Some minor requirements were not implemented yet. The altering of scenarios is not yet possible. This involves renaming, replacing the attached model and the duplication of an existing scenario. In the mapping components, the transfer of a file mapping to another is also not possible yet.\\
+All these features are not necessary for the successful usage of the application, however they reduce effort, for use-cases were only certain parts of a model or data has changed.\\
+The Tooling of the new WebUI proves to be much more stable, than the old one. This is mainly due to the removal of the error prone EdgeJS calls, which have been replaced with properly handled REST calls.
 
 
 
