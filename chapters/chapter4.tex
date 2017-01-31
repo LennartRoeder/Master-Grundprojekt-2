@@ -74,7 +74,6 @@ This being said, the effort is only worth it, for very big applications with man
 \section{Workflow}
 \label{sec:workflow}
 To create a successful simulation-run in MARS, certain steps have to be taken. The WebUI implements this workflow from the data import to the execution. Figure \ref{fig:dependency-workflow} shows the single components and the order, they have to be executed in.
-
 \begin{figure}[H]
 	\centering\includegraphics[width=.7\textwidth]{res/Dependency-workflow}
 	\caption{Dependency workflow}
@@ -82,19 +81,65 @@ To create a successful simulation-run in MARS, certain steps have to be taken. T
 \end{figure}
 
 
+\subsection{Dashboard (Home)}
+The Dashboard shows some basic instructions and an overview of the steps that need to be taken to complete the work-flow of the WebUI. These steps also show, if the user has successfully completed a step.
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_dashboard}
+	\caption{Dashboard}
+	\label{fig:dashboard-ui}
+\end{figure}
+
+
 \subsection{Data Import}
-The data import lets the user add files to the system. These files feed the simulation with information it needs. An example would be a time-series file that contains temperature values over time. The data types are explained in section \ref{sec:data-types}. All the mentioned types can also be uploaded as zip-files.
+\label{sec:data-import}
+The data import lets the user add files to the system. These files feed the simulation with information it needs. An example would be a time-series file that contains temperature values over time. The data types are explained in section \ref{sec:data-types}. All the mentioned types can also be uploaded as zip-files.\\
+Figure \ref{fig:data-import-ui} shows the import view. The user first sees only the import dialog that tells him to select a file. Once that is done, the form is generated and displayed. The \textit{title}, \textit{privacy} and \textit{data type} are mandatory fields. Privacy is preselected. Depending on the selected type, the input form might have additional fields, like a GPS coordinate for the time-series type.\\
+For convenience a bulk upload has been added. Normally every file has its own form. With the bulk upload numerous files of the same type can be handled with one form. The title for each file will have the filename attached, so the files can later be distinguished from one another.\\
+When the import is started, the forms are hidden and replaced with a progress bar and the current status of the import process. When a file has been uploaded, the processing status is shown in a global view, available on every page of the WebUI.
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_data-import}
+	\caption{Data Import}
+	\label{fig:data-import-ui}
+\end{figure}
+
 
 \subsection{Model Import}
-The Model Import allows the upload of zip-files, containing the model code. This is used in the scenario creation.
+The Model Import allows the upload of zip-files, containing the model code. This is used in the scenario creation. The usage is identical to the data import in section \ref{sec:data-import}
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_model-import}
+	\caption{Model Import}
+	\label{fig:model-import-ui}
+\end{figure}
+
+
+\subsection{Data View}
+The data view is a page that lets the user view imported data. On the left are two filter methods. one is a text field and the other is a category filter. Both filters can be combined as needed.\\
+By clicking the titles in the data column, it is also possible to alter the sorting. To view an imported file, the entry can be clicked. A modal window then shows detailed informations.
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_data-view}
+	\caption{Data View}
+	\label{fig:data-view-ui}
+\end{figure}
 
 
 \subsection{Scenario Creation}
-This step creates a scenario based on a previously uploaded model. During the creation, fields that need to be mapped, are determined in the following step .
+This step creates a scenario based on a previously uploaded model. During the creation, fields for the mapping creation are determined.\\
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_scenario}
+	\caption{Scenario Creation}
+	\label{fig:scenario-ui}
+\end{figure}
 
 
 \subsection{Mapping Creation}
-Based on the scenario, the user maps fields for agents, layers and parameters to data imported by the data import or to manual values. This data is then validated with the back-end. Once the user has mapped all required fields successfully, it is possible to start the simulation. As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work.
+Based on the scenario, the user maps fields for agents, layers and parameters to data imported by the data import or to manual values. This data is then validated with the back-end. Once the user has mapped all required fields successfully, it is possible to start the simulation. As shown in figure \ref{fig:dependency-workflow} that part will not be covered in this work.\\
+To create a successful mapping, the user first has to select a scenario. If no scenario is selected, proper instruction will be shown. Once a scenario is selected, the layers and parameters with required mapping-fields are displayed. The user then selects a parameter and adds a value to it, by clicking the add button on a desired dataset.\\
+Upon clicking save, the data is validated with the back-end. If this was successful, like seen in figure \ref{fig:mapping-ui} a message is shown, otherwise the number of errors is displayed. Clicking that notification shows the errors in detail.
+\begin{figure}[H]
+	\centering\includegraphics[width=1\textwidth]{res/workflow_mapping}
+	\caption{Mapping Creation}
+	\label{fig:mapping-ui}
+\end{figure}
 
 
 
