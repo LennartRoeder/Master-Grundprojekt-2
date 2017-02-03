@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_US
 
 \chapter{Analysis}
-This chapter identifies the requirements, needed to transform the application into a micro-service front-end.\\
+This chapter identifies the requirements, needed to transform the application into a stand-alone front-end, serving the micro-services back-end.\\
 The Analysis first determines use-cases for the system, based on the stakeholders. These use-cases will be converted into requirements, which are distinguished into functional and non-functional. A gap-analysis is finally performed, to compare requirements of the new system to the old implementation. 
 
 
@@ -24,7 +24,7 @@ The Administrator is a global user with far reaching permission inside the syste
 \section{Use-cases}
 The workflow that includes completing all the necessary steps to start a simulation can be broken down into five parts: \textit{Import Data}, \textit{Check imported Files}, \textit{Create Mapping}, \textit{Start Simulation} and \textit{View Results} (see section \ref{sec:workflow}). This piece of work does not cover the whole workflow. Instead, it is focused on the first three use-cases.\\
 The Use-cases \textit{Manage Groups} and \textit{Manage Users} are for administrative purposes only. They are also not in the scope of this paper.\\
-Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the Model Developer and the Simulation Creator have a different view of the system, their use-cases do not differ. This is why future sections will reference them as users.
+Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with their stakeholders. Note, that although the model developer and the simulation creator have a different view of the system, their use-cases do not differ. This is why future sections will reference them as users.
 \begin{figure}[H]
 	\centering\includegraphics[width=1\textwidth]{res/Use-Cases_reduced}
 	\caption{Use-cases for the Websuite}
@@ -59,6 +59,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 	}
 \end{usecase}
 
+\newpage
 \begin{usecase}
 	\addtitle{Import II}{Model}
 	\addfield{Summary:}{Upload local model files to the Websuite, to use them for a mapping.}
@@ -78,7 +79,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 
 \begin{usecase}
 	\addtitle{Import III}{Bulk}
-	\addfield{Summary:}{Upload multible files to the Websuite, with the same metadata, to save time for files that are handled alike.}
+	\addfield{Summary:}{Upload multiple files to the Websuite, with the same metadata, to save time for files that are handled alike.}
 	\additemizedfield{Actors:}{
 		\item User
 	}
@@ -123,7 +124,7 @@ Figure \ref{fig:use-cases} shows an overview of the mentioned use-cases with the
 		\item Files have been imported
 	}
 	\additemizedfield{Primary Scenario:}{
-		\item The user checks the status of multible imported files by searching for them. As a result he sees \textit{Finished} or \textit{Failed}.
+		\item The user checks the status of multiple imported files by searching for them. As a result he sees \textit{Finished} or \textit{Failed}.
 	}
 \end{usecase}
 

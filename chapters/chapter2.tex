@@ -16,13 +16,13 @@ This work focuses on extracting the front-end of the fullstack application into 
 The Websuite supports several data types, which are used to initial the layers inside the actual simulation.
 
 \subsubsection{Table-based}
-This import type supports CSV-files with table data that refers to a specific GPS location. An Example would be the starting positions of agents in a model.
+This data type supports CSV-files with table data that refers to a specific GPS location. An example is the starting positions of agents inside a model.
 
 \subsubsection{Time-series}
-The time-series import supports CSV-files with data that changes over time. An example is data, containing average temperatures per day over the duration of the desired simulation time.
+The time-series type supports CSV-files with data that changes over time. An example is data, containing average temperatures per day over the duration of the desired simulation time.
 
 \subsubsection{Geographic-Information-System (GIS)}
-Data with a geographical representation can be imported with the GIS import. It supports the most common file types for GEO-processing, which are:
+Data with a geographical representation is of the type GIS. It supports the most common file types for GEO-processing, which are:
 \begin{itemize}
 	\item AciiGrid (*.asc)
 	\item GeoTIFF (*.tif)
@@ -49,8 +49,8 @@ Micro-services describes a software architecture, where the software is split up
 \subsection{History}
 The concept of handling growing complexity in software is not a new one. The first known thoughts about software structure go back to \citeauthor{conway1968committees}'s law \citeyearpar{conway1968committees}. He claims that organizations tend to structure software systems in a way that matches its hierarchy.\\
 A more recent approach towards handling complexity is Service-Oriented Architecture (SOA) by \cite{as2005service}. SOA is described as an architecture, were independent services communicate with each other over the network.\\
-The term micro-services was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why micro-services are often referred to as \enquote{SOA done right}.\\
-Virtual machines allow the virtualization a whole operating system with its hardware. Containerization software like docker, makes it possible to virtualize on a process level. This significantly reduces overhead and allows independent deployments, as a result the popularity of micro-services has strongly increased over the past 2 years.
+The term micro-services was introduced by \cite{martinfowler2014microservices}. Their approach is a more specific version of SOA. This is why micro-services are sometimes referred to as \enquote{SOA done right}.\\
+Virtual machines allow the virtualization a whole operating system with its hardware. Containerization software like docker, makes it possible to virtualize on a process level. This significantly reduces overhead and allows independent deployments. As a result the popularity of micro-services has strongly increased over the past 2 years.
 
 
 \subsection{Single responsibility}
@@ -76,7 +76,7 @@ The Angular template is the HTML code, written by the developer. Angular combine
 Directives are Angular's method of extending HTML by new elements with JavaScript logic attached. This can be used to create reusable, parameterized components.
 
 \subsubsection{Markup}
-The templating engine allows the user to reference models from the controller to enrich the HTML with model data. This i done with the double curly brackets notation.
+The templating engine allows the user to reference models from the controller to enrich the HTML with model data. This is done with the double curly brackets notation.
 
 \subsubsection{Filter}
 Filters allow formating of input data inside the HTML. Angular has build-in filters for common tasks like formating \textit{numbers} \textit{currencies} or \textit{dates} as well as converters to \textit{uppercase} or \textit{lowercase}. It is also possible to create custom filters based on individual needs.

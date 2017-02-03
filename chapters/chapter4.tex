@@ -7,7 +7,7 @@ This chapter evaluates the possibility to split the WebUI into several component
 
 \section{Micro-services for the WebUI}
 \label{sec:MS_for_WebUI}
-The MARS Websuite has been transfered into a micro-service architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
+The MARS Websuite has been transferred into a micro-service architecture. Back-end services communicate via REST instead of local system calls. While this works well for the back-end, front-end components behave much different.\\
 The code of a back-end service is executed in an environment defined by the provider of the application, while the front-end is delivered to the user and executed by his browser. Some browsers don't implement certain features and the behavior for implemented ones might differ. As a result, assumptions made about the software environment, are much weaker. 
 
 
@@ -93,7 +93,7 @@ The Dashboard shows some basic instructions and an overview of the steps that ne
 \subsection{Data Import}
 \label{sec:data-import}
 The data import lets the user add files to the system. These files feed the simulation with information it needs. An example would be a time-series file that contains temperature values over time. The data types are explained in section \ref{sec:data-types}. All the mentioned types can also be uploaded as zip-files.\\
-Figure \ref{fig:data-import-ui} shows the import view. The user first sees only the import dialog that tells him to select a file. Once that is done, the form is generated and displayed. The \textit{title}, \textit{privacy} and \textit{data type} are mandatory fields. Privacy is preselected. Depending on the selected type, the input form might have additional fields, like a GPS coordinate for the time-series type.\\
+Figure \ref{fig:data-import-ui} shows the import view. The user first sees only the import dialog that tells him to select a file. Once that is done, the form is generated and displayed. The \textit{title}, \textit{privacy} and \textit{data type} are mandatory fields. Privacy is pre-selected. Depending on the selected type, the input form might have additional fields, like a GPS coordinate for the time-series type.\\
 For convenience a bulk upload has been added. Normally every file has its own form. With the bulk upload numerous files of the same type can be handled with one form. The title for each file will have the filename attached, so the files can later be distinguished from one another.\\
 When the import is started, the forms are hidden and replaced with a progress bar and the current status of the import process. When a file has been uploaded, the processing status is shown in a global view, available on every page of the WebUI.
 \begin{figure}[H]
@@ -114,7 +114,7 @@ The Model Import allows the upload of zip-files, containing the model code. This
 
 \subsection{Data View}
 The data view is a page that lets the user view imported data. On the left are two filter methods. one is a text field and the other is a category filter. Both filters can be combined as needed.\\
-By clicking the titles in the data column, it is also possible to alter the sorting. To view an imported file, the entry can be clicked. A modal window then shows detailed informations.
+By clicking the titles in the data column, it is also possible to alter the sorting. To view an imported file, the entry can be clicked. A modal window then shows detailed information.
 \begin{figure}[H]
 	\centering\includegraphics[width=1\textwidth]{res/workflow_data-view}
 	\caption{Data View}
